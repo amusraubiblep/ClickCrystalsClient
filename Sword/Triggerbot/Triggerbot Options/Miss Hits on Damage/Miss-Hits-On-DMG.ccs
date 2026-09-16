@@ -1,0 +1,12 @@
+def module Miss-Hits-on-DMG
+def desc "Misses hits when getting hit"
+
+on module_enable {
+    module enable 25%-Chance-on-DMG
+    module disable 50%-Chance-on-DMG
+}
+
+on module_disable {
+    module disable 25%-Chance-on-DMG
+    module disable 50%-Chance-on-DMG
+}

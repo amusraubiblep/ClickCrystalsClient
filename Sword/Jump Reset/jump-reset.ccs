@@ -1,0 +1,33 @@
+def module jump-reset-v2
+
+on sound_play #entity.player.attack if playing {
+    as nearest_entity :player if holding #sword,#axe {
+        as target_entity if line_of_sight {
+        as client if hurt_time > 0 {
+            if chance_of 85 {
+                execute_random {
+                    func lateJumpReset
+                    func lateJumpReset
+                    func jumpReset
+                    func jumpReset
+                    func jumpReset
+                    func jumpReset
+                    }
+                }
+            }
+        }
+    }
+}
+
+def func lateJumpReset {
+    wait_random 0.03 0.05
+    repeat 2 {
+            input key space
+    }
+}
+
+def func jumpReset {
+        repeat 3 {
+            input key space
+    }
+}

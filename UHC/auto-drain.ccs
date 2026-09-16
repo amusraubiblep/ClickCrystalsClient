@@ -1,0 +1,39 @@
+def module auto-drain
+
+on module_enable while 0.004 module_enabled auto-drain if playing {
+    as nearest_entity :player if holding :bucket {
+        if target_fluid :water_source {
+
+            if hotbar_has :bucket {
+                func bucketDrain
+            }
+
+            if_not hotbar_has :bucket {
+                if hotbar_has :cobweb {
+                    func webDrain
+                }
+            }
+
+            if_not hotbar_has :bucket {
+                if hotbar_has :cobweb {
+                    func webDrain
+                }
+            }
+
+        }
+    }
+}
+
+def func webDrain {
+
+}
+
+def func bucketDrain {
+    if_not input_active use {
+            input right
+    }
+}
+
+def func blockDrain {
+
+}

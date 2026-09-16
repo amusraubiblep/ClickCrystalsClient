@@ -1,0 +1,42 @@
+def module breaker-w-stun-web
+def desc "stun webs when cobwebs in hotbar, stuns only if not"
+
+on left_click if playing if_not input_active attack if_not input_active use {
+    if target_entity :player {
+        if hotbar_has #axe {
+            if hotbar_has #sword {
+                as target_entity if blocking {
+                    if hotbar_has :cobweb {
+                        func stunWeb
+                    }
+
+                    if_not hotbar_has :cobweb {
+                        func swordStun
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+ 
+def func stunWeb {
+    switch #axe
+    wait_random 0.162231 0.2
+    input left
+}
+
+def func swordStun {
+    switch #axe
+    wait_random 0.162231 0.2 
+    switch #sword
+    input left
+}
+
+on sound_play #shield_break if playing {
+    if holding #axe {
+        as target_entity if_not block_in_range :cobweb 2 {
+        module enable cobweb-placer
+        }
+    }
+}

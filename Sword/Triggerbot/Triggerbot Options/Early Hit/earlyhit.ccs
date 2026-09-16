@@ -1,0 +1,15 @@
+def module Early_Hit
+def desc "Misses hits"
+
+
+on module_enable {
+    module enable 25%-Chance-Early-Hit
+    module disable 10%-Chance-Early-Hit
+    module disable 50%-Chance-Early-Hit
+}
+
+on module_disable {
+    module disable 25%-Chance-Early-Hit
+    module disable 10%-Chance-Early-Hit
+    module disable 50%-Chance-Early-Hit
+}

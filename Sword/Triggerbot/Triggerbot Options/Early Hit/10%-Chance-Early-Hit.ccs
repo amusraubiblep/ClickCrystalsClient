@@ -1,0 +1,7 @@
+def module 10%-Chance-Early-Hit
+def desc "MUST HAVE EARLY HIT ON"
+
+on module_enable {
+    module disable 50%-Chance-Early-Hit
+    module disable 25%-Chance-Early-Hit
+}

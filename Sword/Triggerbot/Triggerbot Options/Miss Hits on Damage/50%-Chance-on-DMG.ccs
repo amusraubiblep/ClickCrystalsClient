@@ -1,0 +1,6 @@
+def module 50%-Chance-on-DMG
+def desc "MISS HITS ON DMG MUST BE ON"
+
+on module_enable {
+    module disable 25%-Chance-on-DMG
+}

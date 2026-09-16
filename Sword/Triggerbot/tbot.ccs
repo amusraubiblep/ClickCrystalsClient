@@ -1,0 +1,129 @@
+def module Triggerbot
+def desc "Automatically hits people when using a sword or axe"
+def func wait {
+   wait_random 0.0013 0.0239967
+}
+
+on module_enable while 0.004 module_enabled Triggerbot {
+   if holding #sword,#axe {
+      if playing {
+
+
+if module_enabled Early_Hit {
+      if_not entity_in_range :player 2.5 if entity_in_range :player 4 if entity_in_fov :player 40 {
+            if_not input_active attack if attack_progress >= 0.903 if input_active key W {
+               func missHitChance
+        }
+    }
+}
+         if targeting_entity {
+
+            as target_entity if_not blocking {
+               if chance_of 40 {
+                  func wait
+               }
+               wait_random 0.001 0.045
+               as client if attack_progress >= 0.903 {
+                  as target_entity if hurt_time == 0 {
+                     if chance_of 90 {
+                        if on_ground {
+                           if_not falling {
+                              if_not input_active attack {
+                                 input left
+                              }
+                           }
+                        }
+                     }
+                     if chance_of 90 {
+                        if falling {
+                           if vel_y < 0 {
+                              if_not input_active attack {
+                                 input left
+                              }
+                           }
+                        }
+                     }
+                     if chance_of 90 {
+                        if_not falling {
+                           if_not on_ground {
+                              if_not input_active attack {
+                                 input left
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+            as target_entity if blocking if attack_progress >= 0.85 if hotbar_has #axe if_not input_active attack {
+                func wait
+                input left
+            }
+         }
+      }
+   }
+}
+
+on damage if playing if holding #sword,#axe {
+
+if module_enabled Miss-Hits-on-DMG {
+    if entity_in_fov :player 60 {
+        if entity_in_range :player 3.6 {
+                if_not target_entity :player {
+                    if attack_progress >= 0.903 {
+                  func onDMGMissChance
+               }
+            }
+        }
+    }
+}
+
+   if target_entity :player {
+        if falling {
+            if attack_progress >= 0.903 {
+                input left
+            }
+        }
+    }
+
+}
+
+// on damage -> jump reset using sound + if hurt_time
+
+def func missHitChance {
+
+if module_enabled 10%-Chance-Early-Hit {
+   if chance_of 0.8 {
+   input left // early hit
+   }
+}
+
+if module_enabled 25%-Chance-Early-Hit {
+   if chance_of 2 {
+   input left // early hit
+   }
+}
+
+if module_enabled 50%-Chance-Early-Hit {
+   if chance_of 4 {
+      input left
+   }
+}
+
+}
+
+def func onDMGMissChance {
+
+if module_enabled 50%-Chance-on-DMG {
+   if chance_of 50 {
+   input left
+   }
+}
+
+if module_enabled 25%-Chance-on-DMG {
+   if chance_of 25 {
+   input left
+   }
+}
+
+}
