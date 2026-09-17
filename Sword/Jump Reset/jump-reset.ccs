@@ -1,29 +1,29 @@
-def module jump-reset-v2
+def module Jump-Reset
+def desc "Jumps upon taking an attack to reduce knockback"
 
 on sound_play #entity.player.attack if playing {
     as nearest_entity :player if holding #sword,#axe {
         as target_entity if line_of_sight {
         as client if hurt_time > 0 {
-            if chance_of 85 {
-                execute_random {
-                    func lateJumpReset
-                    func lateJumpReset
-                    func jumpReset
-                    func jumpReset
-                    func jumpReset
-                    func jumpReset
-                    }
-                }
+            func jumpResetChance
             }
         }
     }
 }
 
 def func lateJumpReset {
-    wait_random 0.03 0.05
-    repeat 2 {
+
+    if module_enabled Late-Jump-Reset {
+    wait_random 0.04 0.05666
+    repeat 3 {
             input key space
+        }
     }
+
+    if module_disabled Late-Jump-Reset {
+        func jumpReset
+    }
+
 }
 
 def func jumpReset {
@@ -31,3 +31,34 @@ def func jumpReset {
             input key space
     }
 }
+
+def func jumpResetChance {
+
+    if chance_of 85 {
+        execute_random {
+            func lateJumpReset
+            func lateJumpReset
+            func jumpReset
+            func jumpReset
+            }
+        }
+
+    if chance_of 50 {
+        execute_random {
+            func lateJumpReset
+            func lateJumpReset
+            func jumpReset
+            func jumpReset
+            }
+        }
+
+    if chance_of 25 {
+        execute_random {
+            func lateJumpReset
+            func lateJumpReset
+            func jumpReset
+            func jumpReset
+            }
+        }
+
+    }

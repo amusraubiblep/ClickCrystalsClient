@@ -19,12 +19,19 @@ if module_enabled Early_Hit {
          if targeting_entity {
 
             as target_entity if_not blocking {
+
                if chance_of 40 {
                   func wait
                }
+
                wait_random 0.001 0.045
+
                as client if attack_progress >= 0.903 {
+
                   as target_entity if hurt_time == 0 {
+
+                  if module_disabled Crit-Priority {
+
                      if chance_of 90 {
                         if on_ground {
                            if_not falling {
@@ -34,32 +41,70 @@ if module_enabled Early_Hit {
                            }
                         }
                      }
+
                      if chance_of 90 {
                         if falling {
                            if vel_y < 0 {
                               if_not input_active attack {
                                  input left
-                              }
-                           }
-                        }
-                     }
-                     if chance_of 90 {
-                        if_not falling {
-                           if_not on_ground {
-                              if_not input_active attack {
-                                 input left
+                               }
                               }
                            }
                         }
                      }
                   }
                }
+
+
+               as target_entity if hurt_time == 0 {
+
+                  if module_enabled Crit-Priority {
+
+                     if chance_of 90 {
+                        if_not on_ground if falling {
+                           if vel_y < -0 {
+                              if_not input_active attack if attack_progress >= 0.903 {
+                                 input left
+                                 }
+                              }
+                           }
+                        }
+
+                     if chance_of 90 {
+                        if on_ground if_not falling if vel_y > -0.1 if attack_progress >= 0.85 {
+                           if_not input_active attack {
+                                 input left
+                           }
+                        }
+                     }
+                  }
+                     
+            
+               if chance_of 90 {
+                  if_not falling {
+                     if_not input_active attack if attack_progress >= 0.903 {
+                        if block_in_range :cobweb 0.9 {
+                           input left
+                        }
+                        if swimming {
+                           input left
+                           }
+                        }  
+                     }
+                  }
+               }
             }
+
+         if module_enabled Shield-Breaker if module_enabled Automatic {
             as target_entity if blocking if attack_progress >= 0.85 if hotbar_has #axe if_not input_active attack {
+               as target_entity if hurt_time == 0 {
                 func wait
                 input left
+                  }
+               }
             }
-         }
+            
+         }  
       }
    }
 }

@@ -1,0 +1,12 @@
+def module On-Keybind
+def desc "The keybind you binded will shield break macro instead"
+
+on module_enable {
+    module disable Automatic
+    module disable On-Hit
+    module disable Shield-Breaker
+}
+
+on module_disable {
+    module enable Shield-Breaker
+}

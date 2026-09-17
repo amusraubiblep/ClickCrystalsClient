@@ -1,0 +1,24 @@
+def module sprint-reset
+def desc "Resets sprint upon hitting"
+
+on module_enable {
+        module enable Keep-Sprint
+        module enable Allow-Crit
+}
+
+on left_click if playing if target_entity :player {
+
+        if module_enabled Keep-Sprint {
+                if module_disabled Allow-Crit {
+                        input key S
+                }
+                
+                if module_enabled Allow-Crit {
+                        if on_ground if_not falling {
+                             input key S 
+                        }
+                }
+        }
+
+
+}

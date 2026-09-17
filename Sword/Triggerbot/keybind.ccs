@@ -1,0 +1,9 @@
+def module Triggerbot-Keybind
+
+on module_enable if playing {
+    module enable Triggerbot
+}
+
+on module_disable if playing {
+    module disable Triggerbot
+}

@@ -1,0 +1,9 @@
+def module Crit-Priority
+
+on module_enable {
+    module enable Allow-Crit
+}
+
+on module_disable {
+    module disable Allow-Crit
+}

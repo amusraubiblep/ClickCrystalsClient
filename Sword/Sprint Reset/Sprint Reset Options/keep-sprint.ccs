@@ -1,0 +1,2 @@
+def module Keep-Sprint
+def desc "Keeps sprinting and only resets for 1 tick"

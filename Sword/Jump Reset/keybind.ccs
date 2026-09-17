@@ -1,0 +1,9 @@
+def module Jump-Reset-Keybind
+
+on module_enable if playing {
+    module enable Jump-Reset
+}
+
+on module_disable if playing {
+    module disable Jump-Reset
+}

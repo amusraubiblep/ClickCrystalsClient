@@ -1,0 +1,7 @@
+def module On-Hit
+def desc "Upon left clicking, you will disable their shield"
+
+on module_enable {
+    module disable Automatic
+    module disable On-Keybind
+}

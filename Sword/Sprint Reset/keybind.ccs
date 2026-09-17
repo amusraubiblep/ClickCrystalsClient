@@ -1,0 +1,9 @@
+def module Sprint-Reset-Keybind
+
+on module_enable if playing {
+    module enable Sprint-Reset
+}
+
+on module_disable if playing {
+    module disable Sprint-Reset
+}

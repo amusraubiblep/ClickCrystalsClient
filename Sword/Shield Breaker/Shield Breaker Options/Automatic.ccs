@@ -1,0 +1,7 @@
+def module Automatic
+def desc "Automatically disables shield, times it to triggerbot hits if triggerbots on"
+
+on module_enable {
+    module disable On-Hit
+    module disable On-Keybind
+}

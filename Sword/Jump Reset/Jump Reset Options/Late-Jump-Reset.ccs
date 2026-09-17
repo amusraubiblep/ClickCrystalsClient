@@ -1,0 +1,2 @@
+def module Late-Jump-Reset
+def desc "There is a 50% chance for this to happen when enabled"

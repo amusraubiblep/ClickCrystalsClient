@@ -1,0 +1,29 @@
+def module Shield-Breaker-Keybind
+
+on module_enable if playing if module_disabled On-Keybind {
+    module enable Shield-Breaker
+}
+
+on module_disable if playing if module_disabled On-Keybind {
+    module disable Shield-Breaker
+}
+
+on module_enable if module_enabled On-Keybind {
+    switch #axe
+    input left
+
+    if module_disabled Stun-Web {
+        wait 0.05 {
+            switch back
+            input left
+            module disable Shield-Breaker-Keybind
+        }
+    }
+
+    if module_enabled Stun-Web if hotbar_has :cobweb {
+        input left
+        module disable Shield-Breaker-Keybind
+        module enable cobweb-placer
+    }
+
+}
