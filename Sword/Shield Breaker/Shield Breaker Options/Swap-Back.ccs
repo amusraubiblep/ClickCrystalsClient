@@ -1,2 +1,2 @@
 def module Swap-Back
-def desc "Swaps back to the item you were last holding, default is Sword"
+def desc "Swaps back to the item you were last holding"

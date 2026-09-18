@@ -1,0 +1,7 @@
+def module Two-Tick-GS
+def desc "The tick delay between EACH action"
+
+on module_enable {
+    module disable One-Tick-GS
+    module disable Three-Tick-GS
+}

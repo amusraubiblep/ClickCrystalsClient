@@ -1,0 +1,9 @@
+def module Spear-Swap-Keybind
+
+on module_enable {
+    module enable Spear-Swap
+}
+
+on module disable {
+    module disable Spear-Swap
+}

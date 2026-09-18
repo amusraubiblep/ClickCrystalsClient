@@ -1,0 +1,5 @@
+def module Cobweb-Swap-To-Sword
+
+on module enable {
+    module disable Cobweb-Swap-Back
+}

@@ -1,0 +1,24 @@
+
+def module Spear-Swap
+def desc "Swaps to spear, waits for full cooldown, attacks, then swaps back"
+
+on module_enable if playing if_not input_active inventory if hotbar_has #spear if_not hotbar_has #firework {
+    if_not input_active right {
+    switch #spear
+input left
+wait 0.05 {
+    switch back
+    module disable Spear-Swap
+    module disable Spear-Swap-Keybind
+}
+
+    }
+
+    if input_active right {
+    switch #spear
+input left
+module disable Spear-Swap
+module disable Spear-Swap-Keybind
+    }
+
+}

@@ -13,15 +13,15 @@ on left_click if playing if_not input_active attack if_not input_active use if m
             if hotbar_has #sword {
                 as target_entity if blocking {
                     if hotbar_has :cobweb if module_enabled Stun-Web {
-                        func stunWeb
+                        module enable lazy-axe-breaker-thing
                     }
 
                     if module_disabled Stun-Web {
-                        func swordStun
+                        module enable lazy-axe-breaker-thing
                         }
 
                     if_not hotbar_has :cobweb if module_enabled Stun-Web {
-                        func swordStun
+                        module enable lazy-axe-breaker-thing
                     }
 
                     }
@@ -35,18 +35,7 @@ on left_click if playing if_not input_active attack if_not input_active use if m
         if hotbar_has #axe {
             if hotbar_has #sword {
                 as target_entity if blocking {
-                    if hotbar_has :cobweb if module_enabled Stun-Web {
-                        func stunWeb
-                    }
-
-                    if module_disabled Stun-Web {
-                        func swordStun
-                        }
-
-                    if_not hotbar_has :cobweb if module_enabled Stun-Web {
-                        func swordStun
-                    }
-
+                        module enable lazy-axe-breaker-thing
                     }
                 }
             }
@@ -55,41 +44,18 @@ on left_click if playing if_not input_active attack if_not input_active use if m
 
 on module_enable while 0.004 module_enabled Shield-Breaker if playing if_not input_active attack if_not input_active use if module_enabled Automatic if module_disabled Triggerbot {
     if target_entity :player {
-        if hotbar_has #axe {
-            if hotbar_has #sword {
-                as target_entity if blocking {
-                    if hotbar_has :cobweb if module_enabled Stun-Web {
-                        func stunWeb
-                    }
-
-                    if module_disabled Stun-Web {
-                        func swordStunAutomatic
-                    }
-
-                    if_not hotbar_has :cobweb if module_enabled Stun-Web {
-                        func swordStunAutomatic
-                    }
-
-                    }
-                }
-            }
-        }
-    }
-
-on module_enable while 0.004 module_enabled Shield-Breaker if playing if_not input_active attack if_not input_active use if module_enabled Automatic if module_enabled Triggerbot {
-    if target_entity :player {
         if_not holding #sword,#axe {
                 as target_entity if blocking {
                     if hotbar_has :cobweb if module_enabled Stun-Web {
-                        func stunWeb
+                        module enable lazy-axe-breaker-thing
                     }
 
                     if module_disabled Stun-Web {
-                        func swordStunAutomatic
+                        module enable lazy-axe-breaker-thing
                     }
 
                     if_not hotbar_has :cobweb if module_enabled Stun-Web {
-                        func swordStunAutomatic
+                        module enable lazy-axe-breaker-thing
                     }
 
                     }
@@ -104,15 +70,15 @@ on left_click if playing if_not input_active attack if_not input_active use if m
             if hotbar_has #sword {
                 as target_entity if blocking {
                     if hotbar_has :cobweb if module_enabled Stun-Web {
-                        func stunWeb
+                        module enable lazy-axe-breaker-thing
                     }
 
                     if module_disabled Stun-Web {
-                        func swordStun
+                        module enable lazy-axe-breaker-thing
                         }
 
                     if_not hotbar_has :cobweb if module_enabled Stun-Web {
-                        func swordStun
+                        module enable lazy-axe-breaker-thing
                     }
 
                     }
@@ -121,27 +87,6 @@ on left_click if playing if_not input_active attack if_not input_active use if m
         }
     }
  
-def func stunWeb {
-    if_not holding #_axe {
-        switch #_axe
-    }
-    if holding #_axe {
-    wait_random 0.162231 0.2
-    input left
-    }
-}
-
-def func swordStun {
-    if_not holding #_axe {
-        switch #_axe
-    }
-    if holding #_axe {
-    wait_random 0.162231 0.2 
-    func isSwapBack
-    input left
-    }
-}
-
 
 
 on sound_play #shield_break if playing if hotbar_has :cobweb if module_enabled Stun-Web {
@@ -150,30 +95,4 @@ on sound_play #shield_break if playing if hotbar_has :cobweb if module_enabled S
         module enable cobweb-placer
         }
     }
-}
-
-def func swordStunAutomatic {
-    if_not holding #_axe {
-        switch #_axe
-    }
-    as target_entity if blocking { 
-         if holding #_axe {
-            input left
-            wait_random 0.162231 0.2 {
-                func isSwapBack
-            }
-        }
-    }
-}
-
-def func isSwapBack {
-
-    if module_disabled Swap-Back {
-        switch #sword
-    }
-
-    if module_enabled Swap-Back {
-        switch back
-    }
-
 }

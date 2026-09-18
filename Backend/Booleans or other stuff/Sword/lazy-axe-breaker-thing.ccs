@@ -1,0 +1,29 @@
+def module lazy-axe-breaker-thing
+
+on module_enable if playing {
+    switch #axe
+    input left
+
+    if module_disabled Stun-Web {
+        wait 0.05 {
+            func isSwapback
+            input left
+            module disable lazy-axe-breaker-thing
+        }
+    }
+
+    if module_enabled Stun-Web if hotbar_has :cobweb {
+        input left
+        module disable lazy-axe-breaker-thing
+        module enable cobweb-placer
+    }
+
+}
+
+def func isSwapback {
+
+    if module_enabled Swap-Back {
+        switch back
+    }
+
+}

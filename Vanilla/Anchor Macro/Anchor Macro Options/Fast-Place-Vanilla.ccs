@@ -1,0 +1,23 @@
+def module Fast-Place-Vanilla
+def desc "Right clicks every tick when you hold RMB, turns off some modules"
+
+on module_enable {
+module disable Explode-Anchor
+module disable Glowstone-Use
+module disable Air-Place
+module disable Anchor-Macro-While-Use
+}
+
+on right_click if playing {
+    if in_game if_not in_screen {
+                if_not holding #elytra,#chestplate,#bucket,#firework_rocket,#helmet,#legging,#boot,#cobweb {
+                    wait 0.05 if input_active right {
+                    module enable pretty-fast-place
+                    }
+            }
+        }                    
+    } 
+
+on right_release {
+module disable pretty-fast-place
+}  

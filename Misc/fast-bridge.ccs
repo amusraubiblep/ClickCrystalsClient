@@ -1,0 +1,18 @@
+def module fast-bridge
+def desc "Helps bridge faster"
+
+on place block {
+    if sneaking if block ~ ~-1 ~ #air if input active backward {
+        if holding #cobble,#dirt,#wool,#log if target_block #cobble,#dirt,#wool,#log {
+            velocity ~ 20 ~
+        }
+    }
+}
+
+on tick if not in screen if input active use {
+    if holding #cobble,#dirt,#wool,#log if target block #cobble,#dirt,#wool,#log {
+        if block ~ ~-1 ~ #air {
+            input use
+        }
+    }
+}

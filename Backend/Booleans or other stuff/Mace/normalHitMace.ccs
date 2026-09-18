@@ -1,0 +1,10 @@
+def module normalHitMace
+    on module_enable if playing {
+        if_not holding #mace if_not input_active attack {
+        switch #mace
+        input left
+        }
+        if holding #mace if_not input_active attack {
+        input left
+        }
+    }

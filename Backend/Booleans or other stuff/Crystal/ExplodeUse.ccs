@@ -1,0 +1,26 @@
+def module explode-use-module
+
+on pre_tick if playing if holding :air,#totem {
+
+    if module_enabled One-Tick-ED {
+            input key P
+            module disable explode-use-module
+        }
+    
+
+    if module_enabled Two-Tick-ED {
+        wait 0.05 {
+            input key P
+            module disable explode-use-module
+        }
+    }
+
+    if module_enabled Three-Tick-ED {
+        wait 0.1 {
+            input key P
+            module disable explode-use-module
+        }
+    }
+
+}
+

@@ -33,24 +33,11 @@ if module_enabled Early_Hit {
                   if module_disabled Crit-Priority {
 
                      if chance_of 90 {
-                        if on_ground {
-                           if_not falling {
-                              if_not input_active attack {
-                                 input left
-                              }
-                           }
-                        }
-                     }
 
-                     if chance_of 90 {
-                        if falling {
-                           if vel_y < 0 {
                               if_not input_active attack {
                                  input left
-                               }
-                              }
                            }
-                        }
+                        }  
                      }
                   }
                }
@@ -62,7 +49,7 @@ if module_enabled Early_Hit {
 
                      if chance_of 90 {
                         if_not on_ground if falling {
-                           if vel_y < -0 {
+                           if vel_y < -0.2 {
                               if_not input_active attack if attack_progress >= 0.903 {
                                  input left
                                  }
@@ -71,7 +58,7 @@ if module_enabled Early_Hit {
                         }
 
                      if chance_of 90 {
-                        if on_ground if_not falling if vel_y > -0.1 if attack_progress >= 0.85 {
+                        if on_ground if_not falling if vel_y > -0.1 if attack_progress >= 0.903 {
                            if_not input_active attack {
                                  input left
                            }
@@ -95,7 +82,8 @@ if module_enabled Early_Hit {
                }
             }
 
-         if module_enabled Shield-Breaker if module_enabled Automatic {
+         if module_enabled Shield-Breaker {
+            if module_enabled Automatic {
             as target_entity if blocking if attack_progress >= 0.85 if hotbar_has #axe if_not input_active attack {
                as target_entity if hurt_time == 0 {
                 func wait
@@ -103,7 +91,8 @@ if module_enabled Early_Hit {
                   }
                }
             }
-            
+         }
+         
          }  
       }
    }

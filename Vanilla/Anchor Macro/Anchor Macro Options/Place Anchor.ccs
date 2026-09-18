@@ -1,0 +1,10 @@
+def module Place-Anchor
+def desc "Set your keybind by right-clicking on me"
+
+on module_enable if playing {
+    if targeting_block {
+        switch #anchor
+        input key P
+        module disable Place-Anchor
+    }
+}

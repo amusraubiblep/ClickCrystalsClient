@@ -1,0 +1,5 @@
+def module pretty-fast-place
+
+on pre_tick if playing {
+    input key P
+}

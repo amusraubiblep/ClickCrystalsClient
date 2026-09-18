@@ -1,0 +1,5 @@
+def module Anchor-Macro-While-Use
+
+on module_enable {
+    module disable Fast-Place-Vanilla
+}

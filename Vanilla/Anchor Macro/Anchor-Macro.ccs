@@ -1,0 +1,119 @@
+def module Anchor-Macro
+def desc "Anchors for you, lol"
+
+on module_enable {
+    module enable One-Tick
+}
+
+on pre tick if playing if module_disabled Anchor-Macro-While-Use {
+
+    if target_block :uncharged_respawn_anchor {
+
+        if module_enabled Glowstone-Swap {
+            switch :glowstone
+        }
+
+        if module_enabled Glowstone-Use if module_disabled glowstone-use-module {
+            module enable glowstone-use-module
+        }
+
+    }
+
+    if target_block :charged_respawn_anchor {
+
+        if module_enabled Air-Place {
+            if holding #anchor {
+                if input_active right {
+                    input key P
+                }
+            }
+        }
+
+        if module_enabled Totem-Swap {
+            func TotemSwap
+        }
+
+        if module_enabled Explode-Anchor {
+            module enable explode-use-module
+        }
+
+    }
+
+}
+
+on pre tick if playing if module_enabled Anchor-Macro-While-Use if input_active right {
+
+    if target_block :uncharged_respawn_anchor {
+
+        if module_enabled Glowstone-Swap {
+            switch :glowstone
+        }
+
+        if module_enabled Glowstone-Use if_not input_active key P {
+            input key P
+        }
+
+    }
+
+    if target_block :charged_respawn_anchor {
+
+        if module_enabled Air-Place {
+            if holding #anchor {
+                if input_active right if_not input_active key P {
+                    input key P
+                }
+            }
+        }
+
+        if module_enabled Totem-Swap {
+            func TotemSwap
+        }
+
+        if module_enabled Explode-Anchor if_not input_active key P {
+            input key P
+        }
+
+    }
+
+}
+
+def func TotemSwap {
+
+    if module_enabled Totem-Slot-1 {
+        switch 1
+    }
+
+    if module_enabled Totem-Slot-2 {
+        switch 2
+    }
+
+    if module_enabled Totem-Slot-3 {
+        switch 3
+    }
+
+    if module_enabled Totem-Slot-4 {
+        switch 4
+    }
+
+    if module_enabled Totem-Slot-5 {
+        switch 5
+    }
+
+    if module_enabled Totem-Slot-6 {
+        switch 6
+    }
+
+    if module_enabled Totem-Slot-7 {
+        switch 7
+    }
+
+    if module_enabled Totem-Slot-8 {
+        switch 8
+    }
+
+    if module_enabled Totem-Slot-9 {
+        switch 9
+    }
+
+}
+

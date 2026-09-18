@@ -1,0 +1,45 @@
+def module Auto-Mace 
+def desc "Maces for you"
+
+on module_enable while 0.001 module_enabled Auto-Mace if playing {
+    if hotbar_has #mace {
+        if falling if vel_y < -0.56 {
+            if target_entity :player {
+                if_not input_active attack {
+                    func decision
+                }
+            }
+        }
+    }
+}
+
+def func decision {
+    as target_entity if_not blocking if module_disabled stunSlamPrioritized {
+        func normalMace
+    }
+    as target_entity if blocking {
+        module enable stunSlamPrioritized
+        func stunSlam
+    }
+}
+
+def func normalMace {
+    as target_entity if_not blocking {
+        if_not input_active attack if module_disabled normalHitMace {
+            module enable normalHitMace
+            wait 0.05 {
+            module disable normalHitMace
+            }
+        }
+    }
+}
+
+def func stunSlam {
+    as target_entity if blocking {
+        if_not input_active attack if module_disabled stunSlammer {
+            module enable stunSlammer
+                }
+            }
+        }
+
+

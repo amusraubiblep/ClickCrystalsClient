@@ -1,7 +1,7 @@
 def module cobweb-placer
 def desc "can work as a standalone or with stunweb, bind if using it to place cobwebs"
 
-on module_enable while 0.001 module_enabled cobweb-placer {
+on module_enable while 0.004 module_enabled cobweb-placer {
     if playing {
         if_not holding :cobweb {
             if targeting_block if_not input_active use {
@@ -27,6 +27,18 @@ on module_enable if playing {
 
 on place_block if playing if holding :cobweb {
     module disable cobweb-placer
-    wait 0.05
-    switch #sword
+}
+
+on module_disable if playing if module_enabled Cobweb-Swap-Back {
+    if holding :cobweb {
+        wait 0.05
+        switch back
+    }
+}
+
+on module_disable if playing if module_enabled Cobweb-Swap-To-Sword {
+    if holding :cobweb {
+        wait 0.05
+        switch #sword
+    }
 }

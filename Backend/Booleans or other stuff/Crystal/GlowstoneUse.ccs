@@ -1,0 +1,30 @@
+def module glowstone-use-module
+
+on pre_tick if playing {
+if holding #glowstone {
+if target_block :uncharged_respawn_anchor {
+    if module_enabled One-Tick-GS {
+            input key P
+            module disable glowstone-use-module
+    }
+
+    if module_enabled Two-Tick-GS {
+        wait 0.05 {
+            input key P
+            module disable glowstone-use-module
+        }
+    }
+
+    if module_enabled Three-Tick-GS {
+        wait 0.1 {
+            input key P
+            module disable glowstone-use-module
+        }
+    }
+}
+}
+}
+
+on key_press P {
+    module disable glowstone-use-module
+}
