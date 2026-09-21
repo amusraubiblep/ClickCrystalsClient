@@ -1,29 +1,91 @@
 def module lazy-axe-breaker-thing
 
-on module_enable if playing {
-    switch #axe
-    input left
+on module_enable if playing if module_enabled stunSlammer {
+    module disable lazy-axe-breaker-thing
+}
 
-    if module_disabled Stun-Web {
+on module_enable if playing if module_disabled Swap-from-Inventory if module_disabled stunSlamPrioritized {
+func tempFunc
+}
+
+on module_enable if playing if module_enabled Swap-from-Inventory if module_disabled stunSlamPrioritized if_not input_active inventory {
+
+    if_not hotbar_has #_axe {
+        if_not input_active inventory {
+        input inventory
+        }
+        func invSwap
         wait 0.05 {
-            func isSwapback
-            input left
-            module disable lazy-axe-breaker-thing
+            if input_active inventory {
+            input inventory
+            }
+            wait 0.05 {
+
+            func tempFunc
+            }
         }
     }
 
-    if module_enabled Stun-Web if hotbar_has :cobweb {
-        input left
-        module disable lazy-axe-breaker-thing
-        module enable cobweb-placer
+    if hotbar_has #_axe {
+        func tempFunc
     }
-
 }
 
-def func isSwapback {
+def func tempFunc {
+    as target_entity if blocking {
+        if_not holding #_axe if_not holding #_axe if_not holding #_axe if_not holding #_axe if_not holding #_axe {  
+    switch #_axe
+        }
 
-    if module_enabled Swap-Back {
-        switch back
+    input left
+    }
+}
+
+on module_enable {
+    if module_disabled Automatic wait 0.01 {
+        module disable lazy-axe-breaker-thing
+    }
+    if module_enabled Automatic wait 0.2 {
+        module disable lazy-axe-breaker-thing
+    }
+}
+
+def func invSwap {
+
+    if module_enabled Axe-Swap-1 {
+        gui_quickmove #_axe 1
+    }
+
+    if module_enabled Axe-Swap-2 {
+        gui_quickmove #_axe 2
+    }
+
+    if module_enabled Axe-Swap-3 {
+        gui_quickmove #_axe 3
+    }
+
+    if module_enabled Axe-Swap-4 {
+        gui_quickmove #_axe 4
+    }
+
+    if module_enabled Axe-Swap-5 {
+        gui_quickmove #_axe 5
+    }
+
+    if module_enabled Axe-Swap-6 {
+        gui_quickmove #_axe 6
+    }
+
+    if module_enabled Axe-Swap-7 {
+        gui_quickmove #_axe 7
+    }
+
+    if module_enabled Axe-Swap-8 {
+        gui_quickmove #_axe 8
+    }
+
+    if module_enabled Axe-Swap-9 {
+        gui_quickmove #_axe 9
     }
 
 }

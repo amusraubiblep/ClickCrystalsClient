@@ -6,7 +6,7 @@ on module_enable {
         module enable Allow-Crit
 }
 
-on left_click if playing if target_entity :player {
+on left_click if playing if target_entity :player if moving {
 
         if module_enabled Keep-Sprint {
                 if module_disabled Allow-Crit {

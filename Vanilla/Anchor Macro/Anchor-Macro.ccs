@@ -2,10 +2,28 @@ def module Anchor-Macro
 def desc "Anchors for you, lol"
 
 on module_enable {
-    module enable One-Tick
+    module enable One-Tick-ED
+    module disable Two-Tick-ED
+    module disable Three-Tick-ED
 }
 
-on pre tick if playing if module_disabled Anchor-Macro-While-Use {
+on place_block if playing if module_enabled Only-Placed-Anchors if module_disabled Anchor-Macro-While-Use {
+
+    if holding :respawn_anchor {
+
+        if module_enabled Glowstone-Swap {
+            switch :glowstone
+        }
+
+        if module_enabled Glowstone-Use if module_disabled glowstone-use-module {
+            module enable glowstone-use-module
+        }
+
+    }
+
+}
+
+on pre tick if playing if module_disabled Anchor-Macro-While-Use if module_disabled Only-Placed-Anchors {
 
     if target_block :uncharged_respawn_anchor {
 
@@ -21,16 +39,26 @@ on pre tick if playing if module_disabled Anchor-Macro-While-Use {
 
     if target_block :charged_respawn_anchor {
 
-        if module_enabled Air-Place {
+        if module_enabled Air-Place if module_disabled Airplace-Macro {
             if holding #anchor {
                 if input_active right {
-                    input key P
+                    hold_input key P 0.05
                 }
             }
         }
 
         if module_enabled Totem-Swap {
-            func TotemSwap
+
+            if module_enabled Air-Place {
+                if_not holding #anchor {
+                func TotemSwap
+                }
+            }
+
+            if module_disabled Air-Place {
+                func TotemSwap
+            }
+
         }
 
         if module_enabled Explode-Anchor {
@@ -41,7 +69,7 @@ on pre tick if playing if module_disabled Anchor-Macro-While-Use {
 
 }
 
-on pre tick if playing if module_enabled Anchor-Macro-While-Use if input_active right {
+on pre tick if playing if module_enabled Anchor-Macro-While-Use if module_disabled Only-Placed-Anchors if input_active right {
 
     if target_block :uncharged_respawn_anchor {
 
@@ -50,14 +78,14 @@ on pre tick if playing if module_enabled Anchor-Macro-While-Use if input_active 
         }
 
         if module_enabled Glowstone-Use if_not input_active key P {
-            input key P
+            module enable glowstone-use-module
         }
 
     }
 
     if target_block :charged_respawn_anchor {
 
-        if module_enabled Air-Place {
+        if module_enabled Air-Place if module_disabled Airplace-Macro {
             if holding #anchor {
                 if input_active right if_not input_active key P {
                     input key P
@@ -70,7 +98,7 @@ on pre tick if playing if module_enabled Anchor-Macro-While-Use if input_active 
         }
 
         if module_enabled Explode-Anchor if_not input_active key P {
-            input key P
+            module enable explode-use-module
         }
 
     }

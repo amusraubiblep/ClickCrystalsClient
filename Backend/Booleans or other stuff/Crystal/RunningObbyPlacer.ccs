@@ -1,0 +1,11 @@
+def module nextPhase
+
+on pre_tick {
+      if holding #obsidian {
+         module disable Obby-Placer
+         switch #crystal
+         if module_enabled Place-Crystal {
+            input key P
+        }
+    }
+}

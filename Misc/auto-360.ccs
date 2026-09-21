@@ -1,0 +1,11 @@
+def module auto-360
+
+on left_click if playing if target_entity :player wait 0.03 {
+    if holding #sword {
+        turn_to polar ~ ~180 speed 80 then wait 0.01 {
+        turn_to polar ~ ~180 speed 80 then wait 0.01 {
+            turn_to nearest_entity :player aim head speed 80
+            }
+        }
+    }
+}

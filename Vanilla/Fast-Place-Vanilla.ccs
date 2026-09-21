@@ -1,5 +1,5 @@
 def module Fast-Place-Vanilla
-def desc "Right clicks every tick when you hold RMB, turns off some modules"
+def desc "Right clicks every tick when you hold RMB, turns off some modules, would recommend if you want to be fast"
 
 on module_enable {
 module disable Explode-Anchor

@@ -1,0 +1,2 @@
+def module Spear-Shield-Deleter
+def desc "Drains about 20 shield dura per hit, only on sword. Be careful when using this."

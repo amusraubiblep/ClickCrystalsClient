@@ -1,0 +1,73 @@
+
+def module Obby-Placer
+def desc "use sword or crystal to place obby, use sword to switch to crystals when looking at obby"
+on module_enable {
+   module disable nextPhase
+   module disable nextPhase2
+}
+on module_disable {
+   module disable nextPhase
+   module disable nextPhase2
+}
+on module_enable while 0.001 module_enabled Obby-Placer if playing if_not target_entity :end_crystal if_not holding #shield if_not off_holding #shield if_not target_block #obsidian,#bedrock,#air {
+   if_not module_enabled nextPhase {
+      if hotbar_has #obsidian,#end_crystal if_not target_block #obsidian,#bedrock {
+         if_not targeting_entity {
+            if module_enabled RMB-Mode {
+               if module_enabled On-Sword {
+                  if holding #_sword {
+                     if_not target_block #obsidian,#bedrock {
+                        switch #obsidian
+                        if module_disabled Fast-Place-Vanilla {
+                        input key P
+                        }
+                        module enable nextPhase2
+                     }
+                  }
+               }
+               if module_enabled On-Crystal {
+                  if holding :end_crystal {
+                     if_not target_block #obsidian,#bedrock,#air {
+                        switch #obsidian
+                        if module_disabled Fast-Place-Vanilla {
+                        input key P
+                        }
+                        module enable nextPhase2
+                     }
+                  }
+               }
+               if module_enabled On-Totem {
+                  if holding :totem_of_undying {
+                     if_not target_block #obsidian,#bedrock,#air,#anchor {
+                        switch #obsidian
+                        if module_disabled Fast-Place-Vanilla {
+                        input key P
+                        }
+                        module enable nextPhase2
+                        }
+                    }
+                 }
+                }
+            }
+         }
+      }
+   }
+
+on module_enable while 0.002 module_enabled Obby-Placer if playing if module_disabled RMB-Mode {
+   if_not module_enabled nextPhase if_not target_block :obsidian,:bedrock,:air {
+      if hotbar_has #obsidian,#end_crystal {
+         if_not targeting_entity if_not target_entity :end_crystal {
+                switch #obsidian
+                input key P
+                module enable nextPhase2
+            }
+         }
+      }
+   }
+
+
+on place_block if playing if holding :obsidian {
+   if module_enabled nextPhase2 {
+      module enable nextPhase
+   }
+}

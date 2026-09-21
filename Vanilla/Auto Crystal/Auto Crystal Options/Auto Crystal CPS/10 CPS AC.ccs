@@ -1,0 +1,6 @@
+def module 10-CPS-AC
+
+on module_enable {
+    module disable 15-CPS-AC
+    module disable 20-CPS-AC
+}

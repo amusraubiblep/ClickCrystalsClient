@@ -1,0 +1,9 @@
+def module Auto-Crystal-Keybind
+
+on module_enable if module_disabled On-RMB-AC {
+    module enable Auto-Crystal
+}
+
+on module_disable if module_disabled On-RMB-AC {
+    module disable Auto-Crystal
+}

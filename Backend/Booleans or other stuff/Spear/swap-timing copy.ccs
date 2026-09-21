@@ -1,0 +1,28 @@
+def module swap-timing-deleter
+
+on module_enable wait 0.1 {
+    module disable swap-timing-deleter
+}
+
+on tick if playing if module_disabled Work-With-Triggerbot-SR {
+as target_entity if blocking {
+    if holding #_sword {
+        if entity_in_range :player 4.8 if_not entity_in_range :player 3 {
+            if entity_in_fov :player 40 {
+                switch #_spear
+            }
+        }
+    }
+
+    if holding #_spear {
+        if hotbar_has #sword if targeting_entity {
+            switch #_sword
+            repeat 25 {
+                wait_random 0.001 0.002 {
+            input attack
+                    }
+                }
+            }
+        }
+    }
+}

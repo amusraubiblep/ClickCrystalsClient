@@ -1,0 +1,2 @@
+def module Stun
+def desc "Clicks again after breaking shield to give knockback"

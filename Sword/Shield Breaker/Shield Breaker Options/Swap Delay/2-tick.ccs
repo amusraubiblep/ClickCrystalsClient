@@ -1,0 +1,6 @@
+def module Two-Tick-Swap
+
+on module_enable {
+    module disable One-Tick-Swap
+    module disable Three-Tick-Swap
+}

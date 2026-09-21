@@ -1,0 +1,7 @@
+def module nextPhase2
+
+on place_block if playing if holding :obsidian {
+   if module_enabled nextPhase2 {
+      module enable nextPhase
+   }
+}

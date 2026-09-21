@@ -1,0 +1,11 @@
+def module sword-shield-deleter
+
+on tick if playing {
+    as target_entity if blocking {
+        if holding #_sword {
+            repeat 20 {
+                input left
+            }
+        }
+    }
+}

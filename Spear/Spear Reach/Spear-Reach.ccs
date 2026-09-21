@@ -1,0 +1,25 @@
+def module Spear-Reach
+
+on module_enable {
+    module enable SR-On-Sword
+}
+
+// dtc if 30-40 fov and 4.75 range (for on tick input attack)
+
+on left_click if playing if module_enabled SR-On-Sword {
+    if holding #_sword {
+        module enable swap-timing-sword
+        }
+    }
+
+
+on left_click if playing if module_enabled SR-On-Axe {
+    if holding #_axe {
+        module enable swap-timing-axe
+        }
+    }
+
+
+on left_click if playing if module_enabled Spear-Shield-Deleter {
+        module enable swap-timing-deleter
+    }

@@ -1,0 +1,2 @@
+def module Switch-To-Crystal
+def desc "This switches to your end crystal slot when looking at obsidian"

@@ -1,0 +1,12 @@
+def module Axe-Swap-3
+
+on module_enable {
+    module disable Axe-Swap-1
+    module disable Axe-Swap-2
+    module disable Axe-Swap-4
+    module disable Axe-Swap-5
+    module disable Axe-Swap-6
+    module disable Axe-Swap-7
+    module disable Axe-Swap-8
+    module disable Axe-Swap-9
+}

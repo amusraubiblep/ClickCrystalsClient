@@ -1,7 +1,8 @@
 def module explode-use-module
 
-on pre_tick if playing if holding :air,#totem {
-
+on module_enable if playing if module_disabled Airplace-Keybind if holding :air,#totem,#dust,#stone {
+    if_not holding :glowstone if module_disabled Airplace-Keybind {
+    if module_disabled Airplace-Keybind {
     if module_enabled One-Tick-ED {
             input key P
             module disable explode-use-module
@@ -20,7 +21,45 @@ on pre_tick if playing if holding :air,#totem {
             input key P
             module disable explode-use-module
         }
+             }
+        }
     }
-
 }
 
+on tick if playing if module_disabled Airplace-Keybind if holding :air,#totem,#dust,#stone if module_disabled Totem-Swap {
+    if_not holding :glowstone if module_disabled Airplace-Keybind {
+    if module_disabled Airplace-Keybind {
+    if module_enabled One-Tick-ED {
+        input key P
+        module disable explode-use-module
+            }
+        }
+    }
+}
+
+
+on tick 2 if playing if module_disabled Airplace-Keybind if holding :air,#totem,#dust,#stone if module_disabled Totem-Swap {
+    if_not holding :glowstone if module_disabled Airplace-Keybind {
+    if module_disabled Airplace-Keybind {
+    if module_enabled Two-Tick-ED {
+        input key P
+        module disable explode-use-module
+            }
+        }
+    }
+}
+
+on tick 3 if playing if module_disabled Airplace-Keybind if holding :air,#totem,#dust,#stone if module_disabled Totem-Swap {
+    if_not holding :glowstone if module_disabled Airplace-Keybind {
+    if module_disabled Airplace-Keybind {
+    if module_enabled Three-Tick-ED {
+        input key P
+        module disable explode-use-module
+            }
+        }
+    }
+}
+
+on key_press P {
+    module disable explode-use-module
+}

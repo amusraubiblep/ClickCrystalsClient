@@ -1,0 +1,14 @@
+def module 100ms-Reaction
+def desc "Automatic must be on"
+
+on module enable {
+    module disable 50ms-Reaction
+    module disable 150ms-Reaction
+    module disable 200ms-Reaction
+    module disable 250ms-Reaction
+    module enable reactionTimeOn
+}
+
+on module disable {
+    module disable reactionTimeOn
+}

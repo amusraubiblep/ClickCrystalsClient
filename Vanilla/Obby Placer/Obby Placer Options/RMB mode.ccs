@@ -1,0 +1,15 @@
+def module RMB-Mode
+
+on module_enable {
+    module enable On-Crystal
+    module enable On-Sword
+    module enable Obby-Placer-Keybind
+}
+
+
+on module_disable {
+    module disable On-Crystal
+    module disable On-Sword
+    module disable On-Totem
+    module disable Obby-Placer-Keybind
+}

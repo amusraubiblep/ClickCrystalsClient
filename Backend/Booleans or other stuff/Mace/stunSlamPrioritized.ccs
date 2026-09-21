@@ -1,1 +1,8 @@
 def module stunSlamPrioritized
+
+on tick 20 {
+    as target_entity if_not blocking {
+    module disable stunSlamPrioritized
+    module disable stunSlammer
+    }
+}

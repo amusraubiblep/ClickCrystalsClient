@@ -1,0 +1,26 @@
+def module swap-timing-axe
+
+on module_enable wait 0.1 {
+    module disable swap-timing-axe
+}
+
+on tick if playing if module_disabled Work-With-Triggerbot-SR {
+    if holding #_axe {
+        if entity_in_range :player 4.8 if_not entity_in_range :player 3 {
+            if entity_in_fov :player 40 {
+                switch #_spear
+                hold_input left 0.1
+                wait 0.05 {
+                    hold_input cancel
+                }
+            }
+        }
+    }
+
+    if holding #_spear {
+        if hotbar_has #sword if targeting_entity if attack_progress >= 0.05 {
+            switch #_axe
+            input attack   
+        }
+    }
+}

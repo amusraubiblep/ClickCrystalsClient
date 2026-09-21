@@ -1,0 +1,8 @@
+def module Key-Pearl
+def desc "Just bind a key to this and it'll pearl, keep this off"
+
+on module_enable if playing wait 0.01 {
+    switch :ender_pearl
+    input key P
+    module disable Key-Pearl
+}

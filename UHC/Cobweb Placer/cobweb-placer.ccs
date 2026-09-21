@@ -1,7 +1,7 @@
 def module cobweb-placer
 def desc "can work as a standalone or with stunweb, bind if using it to place cobwebs"
 
-on module_enable while 0.004 module_enabled cobweb-placer {
+on module_enable while 0.004 module_enabled cobweb-placer if hotbar_has :cobweb {
     if playing {
         if_not holding :cobweb {
             if targeting_block if_not input_active use {
@@ -27,18 +27,41 @@ on module_enable if playing {
 
 on place_block if playing if holding :cobweb {
     module disable cobweb-placer
-}
 
-on module_disable if playing if module_enabled Cobweb-Swap-Back {
-    if holding :cobweb {
-        wait 0.05
-        switch back
+    if module_enabled Cobweb-Swap-To-Sword {
+        func isSwapback
     }
+
 }
 
 on module_disable if playing if module_enabled Cobweb-Swap-To-Sword {
     if holding :cobweb {
-        wait 0.05
-        switch #sword
+        func isSwapback
     }
+}
+
+def func isSwapback {
+
+    if module_enabled Swap-Back {
+
+        if module_enabled One-Tick-Swap {
+            wait 0.05 {
+        switch #sword
+            }
+        }
+
+        if module_enabled Two-Tick-Swap {
+            wait 0.10 {
+                switch #sword
+            }
+        }
+
+        if module_enabled Three-Tick-Swap {
+            wait 0.15 {
+                switch #sword
+            }
+        }
+
+    }
+
 }

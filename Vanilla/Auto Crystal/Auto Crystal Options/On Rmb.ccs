@@ -1,0 +1,9 @@
+def module On-RMB-AC
+
+on right_click if playing if_not in_screen {
+    module enable Auto-Crystal
+}
+
+on right_release if playing if_not in_screen {
+    module disable Auto-Crystal
+}

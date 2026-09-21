@@ -1,0 +1,42 @@
+def module Inventory-Hover-Totem-Placeholder
+//Jat9119
+def desc "Automatically totems both hands when inventory is active"
+on pre_tick {
+   if input_active inventory {
+      if hovering_over :totem_of_undying {
+         if inventory_has :totem_of_undying {
+            if inventory count #totem > 0 {
+            if off_holding :totem_of_undying {
+               if_not holding :totem_of_undying {
+                  wait_random 0.012 0.12
+                  input key H //Change to your hotbar totem slot
+               }
+            }
+            if holding :totem_of_undying {
+               if_not off_holding :totem_of_undying {
+                  wait_random 0.012 0.12
+                  input key f //Change to your offhand key
+               }
+            }
+            if_not holding :totem_of_undying {
+               if_not off_holding :totem_of_undying {
+                  wait_random 0.012 0.12
+                  input key f //Change to your offhand key
+               }
+            }
+         }
+      }
+   }
+}
+}
+on totem_pop {
+   if input_active inventory {
+   }
+}
+on key_press R {
+   if_not in_screen {
+      if hurt_time > 0 {
+      input key H //Change to your hotbar totem slot
+      }
+   }
+}

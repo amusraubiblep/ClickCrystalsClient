@@ -1,0 +1,14 @@
+def module Obby-Placer-Keybind
+
+on right_click if module_enabled RMB-Mode {
+    module enable Obby-Placer
+}
+
+on right_release if module_enabled RMB-Mode {
+    module disable Obby-Placer
+}
+
+on module_enable if module_disabled RMB-Mode {
+    module enable Obby-Placer
+    module disable Obby-Placer-Keybind
+}

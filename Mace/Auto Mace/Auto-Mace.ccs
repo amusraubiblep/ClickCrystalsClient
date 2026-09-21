@@ -1,9 +1,9 @@
 def module Auto-Mace 
 def desc "Maces for you"
 
-on module_enable while 0.001 module_enabled Auto-Mace if playing {
+on module_enable while 0.001 module_enabled Auto-Mace as client if playing {
     if hotbar_has #mace {
-        if falling if vel_y < -0.56 {
+        if falling if vel_y < -0.45 {
             if target_entity :player {
                 if_not input_active attack {
                     func decision

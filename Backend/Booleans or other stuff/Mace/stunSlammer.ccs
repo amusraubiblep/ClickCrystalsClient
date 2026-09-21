@@ -2,6 +2,7 @@ def module stunSlammer
 def desc "only purpose is to not switch to axe multiple times"
 
 on module_enable if playing {
+    as target_entity if blocking {
     switch #axe
     input left
     wait 0.066 {
@@ -9,5 +10,11 @@ on module_enable if playing {
     input left
     module disable stunSlamPrioritized
     module disable stunSlammer
+        }
+    }
+    as target_entity if_not blocking {
+    module disable stunSlamPrioritized
+    module disable stunSlammer
     }
 }
+

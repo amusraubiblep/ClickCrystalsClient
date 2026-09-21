@@ -1,0 +1,17 @@
+def module testing
+
+on tick if playing if blocking {
+    send "hi"
+}
+
+on tick if playing {
+    as client if blocking {
+    send "hi"
+    }
+}
+
+on tick if playing {
+    as client if moving {
+        send "hi"
+    }
+}

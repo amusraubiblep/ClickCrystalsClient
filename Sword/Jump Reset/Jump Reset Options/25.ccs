@@ -1,0 +1,6 @@
+def module 25%-Chance-AJR
+
+on module_enable {
+    module disable 85%-Chance-AJR
+    module disable 50%-Chance-AJR
+}

@@ -1,2 +1,8 @@
 def module Swap-Back
 def desc "Swaps back to the item you were last holding"
+
+on module_enable {
+    module enable One-Tick-Swap
+    module disable Two-Tick-Swap
+    module disable Three-Tick-Swap
+}
