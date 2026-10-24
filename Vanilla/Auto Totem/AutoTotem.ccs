@@ -1,0 +1,97 @@
+def module Auto-Totem
+def desc "Automatically totems for you"
+
+on module_enable {
+    module enable 100%-Chance-AT
+    module enable Hotbar-Swap
+    module enable Offhand-Swap
+    if module_enabled SMP-Auto-Totem {
+    module disable SMP-Auto-Totem
+    }
+}
+
+// ------------------- HOVER TOTEM + RANDOMIZATION -------------------------
+
+on pre_tick if module_enabled Hover-Totem if module_disabled SMP-Auto-Totem {
+   if input_active inventory {
+        if hovering_over :totem_of_undying {
+
+        if_not off_holding :totem_of_undying if module_enabled Offhand-Swap if module_disabled Offhand-Key {
+            module enable Offhand-Key
+        }
+
+        if_not hotbar_count :totem_of_undying >= 1 if module_enabled Hotbar-Swap if module_disabled Hotbar-Key {  
+            module enable Hotbar-Key
+            }
+        }
+    }
+}
+
+// ------------------- INV TOTEM -------------------------
+
+on pre_tick if module_disabled Hover-Totem if module_disabled SMP-Auto-Totem {
+    if input_active inventory {
+        if_not off_holding :totem_of_undying {
+            if hotbar_has :totem_of_undying if module_enabled Offhand-Swap {  
+            module enable OffhandTotem
+            }
+        }
+
+        if_not hotbar_has :totem_of_undying {
+            if off_holding :totem_of_undying if module_enabled Hotbar-Swap {
+            module enable MainhandTotem
+            }
+        }
+        
+        if_not hotbar_has :totem_of_undying {
+            if_not off_holding :totem_of_undying if module_enabled Offhand-Swap {
+            module enable OffhandTotem
+            }
+        }
+
+    }
+}
+
+// smp mode
+
+
+
+def func TotemSwap {
+
+    if module_enabled Auto-Totem-Slot-1 {
+        switch 1
+    }
+
+    if module_enabled Auto-Totem-Slot-2 {
+        switch 2
+    }
+
+    if module_enabled Auto-Totem-Slot-3 {
+        switch 3
+    }
+
+    if module_enabled Auto-Totem-Slot-4 {
+        switch 4
+    }
+
+    if module_enabled Auto-Totem-Slot-5 {
+        switch 5
+    }
+
+    if module_enabled Auto-Totem-Slot-6 {
+        switch 6
+    }
+
+    if module_enabled Auto-Totem-Slot-7 {
+        switch 7
+    }
+
+    if module_enabled Auto-Totem-Slot-8 {
+        switch 8
+    }
+
+    if module_enabled Auto-Totem-Slot-9 {
+        switch 9
+    }
+
+}

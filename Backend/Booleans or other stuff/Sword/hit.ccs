@@ -1,0 +1,8 @@
+def module tbothit
+
+on module_enable if_not input_active attack if target_entity :player {
+    hold_input left 0.03
+    wait 0.05 {
+        module disable tbothit
+    }
+}

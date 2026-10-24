@@ -1,0 +1,69 @@
+def module just-tribbergot
+
+on module enable {
+    func tbot
+}
+
+def func tbot {
+	wait_random 0.001 0.002 {
+		if playing if module_enabled just-tribbergot if_not in_screen if target_entity :player {
+			if holding #_sword,#_axe if_not input_active use {
+				if attack_progress >= 0.9 if target_entity :player if_not input_active left {
+					as target_entity if_not blocking if chance_of 90 {
+						if on_ground {
+							wait_random 0.0052358 0.022139 {
+								as target_entity if on_ground {
+									if_not input_active attack {
+										input left
+									}
+								}
+							}
+						}
+						if_not on_ground if falling {
+							wait_random 0.0052358 0.022139 {
+								if_not input_active attack {
+									if hotbar_has :mace[breach] {
+										switch :mace[breach]
+										input left
+										wait 0.05 {
+											switch back
+										}
+									}
+									if_not hotbar_has :mace[breach] {
+										input left
+									}
+								}
+							}
+						}
+						if block_in_range :cobweb 0.9 {
+							wait_random 0.0052358 0.022139 {
+								if_not input_active attack {
+									input left
+								}
+							}
+						}
+						if swimming {
+							wait_random 0.0052358 0.012139 {
+								if_not input_active attack {
+									input left
+								}
+							}
+						}
+						if on_ground {
+							wait_random 0.0052358 0.012139 {
+								as target_entity if_not on_ground if_not falling {
+									if_not input_active attack {
+										input left
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		wait_random 0.00166 0.0024 {
+			func tbot
+		}
+	}
+}

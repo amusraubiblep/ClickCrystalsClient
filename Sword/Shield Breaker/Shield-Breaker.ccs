@@ -1,130 +1,249 @@
 def module Shield-Breaker
 def desc "Disable Shield using axe"
 
-on module_enable if module_disabled On-Keybind {
-    module enable On-Hit
-    module disable Stun-Web
-    module disable Automatic
+def func enableAxeBreaker {
+	if module_disabled lazy-axe-breaker-thing {
+		module enable lazy-axe-breaker-thing
+	}
 }
 
-on left_click if playing if_not input_active attack if_not input_active use if module_enabled On-Hit {
-    if target_entity :player {
-                as target_entity if blocking if module_disabled lazy-axe-breaker-thing {
-                    module enable lazy-axe-breaker-thing
-                }
-            }
-        }
-
-on module_enable while 0.004 module_enabled Shield-Breaker if playing if_not input_active attack if_not input_active use if module_enabled Automatic if module_disabled Triggerbot if module_disabled reactionTimeOn {
-    if target_entity :player {
-                as target_entity if blocking if module_disabled lazy-axe-breaker-thing {
-                        module enable lazy-axe-breaker-thing
-                    }
-                }
-            }
-    
-// --------------------------------------------------- stupid shield breaker reaction time hting ----------------------------
-
-on tick if playing if_not input_active attack if_not input_active use if module_enabled Automatic if module_enabled 50ms-Reaction {
-    if target_entity :player {
-                as target_entity if blocking if module_disabled lazy-axe-breaker-thing {
-                        module enable lazy-axe-breaker-thing
-                    }
-                }
-            }
-
-on tick 2 if playing if_not input_active attack if_not input_active use if module_enabled Automatic if module_enabled 100ms-Reaction {
-    if target_entity :player {
-                as target_entity if blocking if module_disabled lazy-axe-breaker-thing {
-                        module enable lazy-axe-breaker-thing
-                    }
-                }
-            }
-
-on tick 3 if playing if_not input_active attack if_not input_active use if module_enabled Automatic if module_enabled 150ms-Reaction {
-    if target_entity :player {
-                as target_entity if blocking if module_disabled lazy-axe-breaker-thing {
-                        module enable lazy-axe-breaker-thing
-                    }
-                }
-            }
-
-on tick 4 if playing if_not input_active attack if_not input_active use if module_enabled Automatic if module_enabled 200ms-Reaction {
-    if target_entity :player {
-                as target_entity if blocking if module_disabled lazy-axe-breaker-thing {
-                        module enable lazy-axe-breaker-thing
-                    }
-                }
-            }
-
-on tick 5 if playing if_not input_active attack if_not input_active use if module_enabled Automatic if module_enabled 250ms-Reaction {
-    if target_entity :player {
-                as target_entity if blocking if module_disabled lazy-axe-breaker-thing {
-                        module enable lazy-axe-breaker-thing
-                    }
-                }
-            }
-
-// ------------------------------------------------------------------------------------------------------
-
-on left_click if playing if_not input_active attack if_not input_active use if module_enabled Automatic if module_enabled Triggerbot if module_disabled reactionTimeOn {
-    if target_entity :player {
-                as target_entity if blocking if module_disabled lazy-axe-breaker-thing {
-                    module enable lazy-axe-breaker-thing
-                    }
-                }
-            }
- 
-on sound_play #shield_break if playing if module_enabled Stun-Web if target_entity :player {
-        as target_entity if_not block_in_range :cobweb 2 {
-            if module_enabled Stun {
-        input left
-            }
-
-            if hotbar_has :cobweb if holding #_axe {
-            module enable cobweb-placer
-            }
-
-            if_not hotbar_has :cobweb {
-                func isSwapback
-                }
-
-            }
-        }
-
-
-
-on sound_play #shield_break if playing if module_disabled Stun-Web if target_entity :player {
-    if module_disabled Stun-Web {
-        wait 0.05 {
-            func isSwapback
-            if module_enabled Stun {
-            input left
-            }
-            }
-        }
-    }
-
 def func isSwapback {
+	if module_enabled Swap-Back {
+		if module_enabled One-Tick-Swap {
+			switch back
+		}
 
-    if module_enabled Swap-Back {
+		if module_enabled Two-Tick-Swap {
+			wait 0.05 {
+				switch back
+			}
+		}
 
-        if module_enabled One-Tick-Swap {
-        switch back
-        }
+		if module_enabled Three-Tick-Swap {
+			wait 0.10 {
+				switch back
+			}
+		}
+	}
+}
 
-        if module_enabled Two-Tick-Swap {
-            wait 0.05 {
-                switch back
-            }
-        }
+on module_enable {
+	if module_disabled On-Keybind {
+		module enable On-Hit
+		module disable Stun-Web
+		module disable Automatic
+		func Automatic
+	}
+}
 
-        if module_enabled Three-Tick-Swap {
-            wait 0.10 {
-                switch back
-            }
-        }
+on left_click {
+	if playing {
+		if module_enabled On-Hit {
+			if module_disabled stunSlamPrioritized {
+				if module_disabled normalHitMace {
+					if module_disabled stunSlammer {
+						as target_entity if blocking {
+							if module_disabled lazy-axe-breaker-thing {
+								if input_active use {
+									input right
 
-    }
+									wait 0.1 {
+										module enable lazy-axe-breaker-thing
+									}
+								}
 
+								function enableAxeBreaker
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+def func Automatic {
+	wait_random 0.001 0.002 {
+		if playing {
+			if module_enabled Shield-Breaker {
+				if module_enabled Automatic {
+					if module_disabled Work-With-Triggerbot-SB {
+						if module_disabled reactionTimeOn {
+							if module_disabled stunSlamPrioritized {
+								if module_disabled normalHitMace {
+									if module_disabled stunSlammer {
+										as target_entity if blocking {
+											if module_disabled lazy-axe-breaker-thing {
+												module enable lazy-axe-breaker-thing
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		wait 0.001 {
+			func Automatic
+		}
+	}
+}
+
+on tick {
+	as client if playing {
+		if module_enabled Automatic {
+			if module_enabled 50ms-Reaction {
+				as target_entity if blocking {
+					if module_disabled lazy-axe-breaker-thing {
+						module enable lazy-axe-breaker-thing
+					}
+				}
+			}
+		}
+	}
+}
+
+on tick 2 {
+	if playing {
+		if module_enabled Automatic {
+			if module_enabled 100ms-Reaction {
+				if module_disabled stunSlamPrioritized {
+					if module_disabled normalHitMace {
+						if module_disabled stunSlammer {
+							as target_entity if blocking {
+								function enableAxeBreaker
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+on tick 3 {
+	if playing {
+		if module_enabled Automatic {
+			if module_enabled 150ms-Reaction {
+				if module_disabled stunSlamPrioritized {
+					if module_disabled normalHitMace {
+						if module_disabled stunSlammer {
+							as target_entity if blocking {
+								function enableAxeBreaker
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+on tick 4 {
+	if playing {
+		if module_enabled Automatic {
+			if module_enabled 200ms-Reaction {
+				if module_disabled stunSlamPrioritized {
+					if module_disabled normalHitMace {
+						if module_disabled stunSlammer {
+							as target_entity if blocking {
+								function enableAxeBreaker
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+on tick 5 {
+	if playing {
+		if module_enabled Automatic {
+			if module_enabled 250ms-Reaction {
+				if module_disabled stunSlamPrioritized {
+					if module_disabled normalHitMace {
+						if module_disabled stunSlammer {
+							as target_entity if blocking {
+								function enableAxeBreaker
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+on left_click {
+	if playing {
+		if module_enabled Automatic {
+			if module_enabled Triggerbot {
+				if module_enabled Work-With-Triggerbot-SB {
+					if module_disabled reactionTimeOn {
+						if module_disabled stunSlamPrioritized {
+							if module_disabled normalHitMace {
+								if module_disabled stunSlammer {
+									as target_entity if blocking {
+										function enableAxeBreaker
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+on sound_play #shield_break {
+	if playing {
+		if module_enabled Stun-Web {
+			if module_disabled stunSlamPrioritized {
+				if module_disabled normalHitMace {
+					if module_disabled stunSlammer {
+						as target_entity if_not block_in_range :cobweb 2 {
+							if module_enabled Stun {
+								input left
+							}
+
+							if hotbar_has :cobweb {
+								if holding #_axe {
+									module enable cobweb-placer
+								}
+							}
+
+							if_not hotbar_has :cobweb {
+								function isSwapback
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+on sound_play #shield_break {
+	if playing {
+		if module_disabled Stun-Web {
+			if module_disabled stunSlamPrioritized {
+				if module_disabled normalHitMace {
+					if module_disabled stunSlammer {
+						wait 0.05 {
+							function isSwapback
+
+							if module_enabled Stun {
+								input left
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }

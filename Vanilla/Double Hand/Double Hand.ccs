@@ -1,0 +1,42 @@
+def module Double-Hand
+
+on pre_tick if playing if module_enabled Near-Crystal {
+    if holding :totem_of_undying {
+        module disable short-circuit-dbh-near-crystal
+    }
+    if_not holding :totem_of_undying if module_disabled short-circuit-dbh-near-crystal {
+        module enable short-circuit-dbh-near-crystal
+    }
+}
+
+on pre_tick if module_enabled On-Inventory-Open {
+    if input_active inventory if_not holding #totem {
+        switch #totem
+    }
+}
+
+
+// on hit
+on pre_tick if playing if module_enabled On-Hit-AT {
+    if_not on_ground {
+        if hurt_time > 0 {
+            as nearest_entity :player if holding :end_crystal,:obsidian,:respawn_anchor,:glowstone {
+                if_not holding :totem_of_undying {
+                    switch :totem_of_undying
+                }
+            }
+        }
+    }
+}
+
+on totem_pop if playing if module_enabled On-Totem-Pop {
+    switch :totem_of_undying
+}
+
+on pre_tick if playing if module_enabled Near-Anchor {
+    if block_in_range :charged_respawn_anchor 5 {
+        if_not holding :totem_of_undying,:respawn_anchor,:end_crystal,:obsidian,:glowstone {
+            switch :totem_of_undying
+        }
+    }
+}

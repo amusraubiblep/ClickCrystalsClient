@@ -1,0 +1,21 @@
+def module Hotbar-Key
+def desc "Middle click on me and bind your key!"
+
+on module enable if input_active inventory if in_game {
+        wait_random 0.012131391238901827354780231801723981273 0.02329312938104098
+    // -------------------------------------------
+    // ----------- CHANGE KEY HERE ---------------
+    
+    input key H
+    // ----------- CHANGE KEY HERE ---------------
+    // -------------------------------------------
+    module disable Hotbar-Key
+
+}
+
+// Note: Mouse buttons are not possible, please rebind your mouse buttons
+// If you are using them.
+
+def func wait_time {
+
+}   

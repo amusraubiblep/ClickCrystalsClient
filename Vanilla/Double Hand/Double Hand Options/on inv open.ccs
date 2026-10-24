@@ -1,0 +1,2 @@
+def module On-Inventory-Open
+def desc "On opening your inventory, switch to totem"

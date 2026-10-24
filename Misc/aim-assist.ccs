@@ -1,0 +1,15 @@
+def module aim-assist
+def desc "bannable"
+
+on module_enable while 0.001 module_enabled aim-assist if playing {
+    turn_to nearest_entity :player aim head speed 80
+    func randomization
+}
+
+def func randomization {
+    execute_random {
+        turn_to polar ~1 ~ speed 80
+        turn_to polar ~1 ~1 speed 80
+        turn_to polar ~ ~1 speed 80
+    }
+}

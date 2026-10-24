@@ -1,10 +1,79 @@
 def module normalHitMace
     on module_enable if playing {
-        if_not holding #mace if_not input_active attack {
-        switch #mace
+        if_not holding #mace if_not input_active left {
+        func maceDecisionHit
         input left
+        func isSwapback
         }
-        if holding #mace if_not input_active attack {
+        if holding #mace if_not input_active left {
         input left
+        func isSwapback
         }
     }
+
+def func maceDecisionHit {
+
+
+if module_disabled Optimal-Mace {
+func nonOptimMaceHit
+}
+
+if module_enabled Optimal-Mace {
+
+    if vel_y <= -0.5 {
+        func nonOptimMaceHitBreach
+    }
+
+    
+    if vel_y <= -0.8 {
+        func nonOptimMaceHit
+    }
+
+    }
+}
+
+def func isSwapback {
+    if module_enabled Swap-Back-AM {
+        wait 0.15 {
+            switch back
+        }
+    }
+}
+
+def func nonOptimMaceHit {
+    if hotbar_has :mace[density] {
+        switch :mace[density]
+    }
+
+    if_not hotbar_has :mace[density] {
+        if hotbar_has :mace[breach] {
+            switch :mace[breach]
+        }
+    }
+
+    
+    if_not hotbar_has :mace[density] {
+        if_not hotbar_has :mace[breach] {
+            switch #mace
+        }
+    }
+}
+
+def func nonOptimMaceHitBreach {
+    if hotbar_has :mace[breach] {
+        switch :mace[breach]
+    }
+    
+    if_not hotbar_has :mace[breach] {
+        if hotbar_has :mace[density] {
+            switch :mace[density]
+        }
+    }
+
+    
+    if_not hotbar_has :mace[density] {
+        if_not hotbar_has :mace[breach] {
+            switch #mace
+        }
+    }
+}

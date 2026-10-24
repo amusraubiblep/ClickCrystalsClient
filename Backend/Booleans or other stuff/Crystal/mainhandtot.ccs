@@ -1,0 +1,89 @@
+def module MainhandTotem
+
+on module enable if input_active inventory {
+
+    if module_enabled 25%-Chance-AT {
+        if chance_of 25 {
+            module disable MainhandTotem
+        }
+    }
+
+    if module_enabled 50%-Chance-AT {
+        if chance_of 50 {
+            module disable MainhandTotem
+        }
+    }
+
+    if module_enabled 75%-Chance-AT {
+        if chance_of 75 {
+            module disable MainhandTotem
+        }
+    }
+
+    if module_enabled Auto-Totem-Slot-1 {
+        if_not inventory_slot 1 :totem_of_undying {
+            gui_quickmove :totem_of_undying 1
+        }
+    }
+
+    if module_enabled Auto-Totem-Slot-2 {
+        if_not inventory_slot 2 :totem_of_undying {
+            gui_quickmove :totem_of_undying 2
+        }
+    }
+
+    if module_enabled Auto-Totem-Slot-3 {
+        if_not inventory_slot 3 :totem_of_undying {
+            gui_quickmove :totem_of_undying 3
+        }
+    }
+
+    if module_enabled Auto-Totem-Slot-4 {
+        if_not inventory_slot 4 :totem_of_undying {
+            gui_quickmove :totem_of_undying 4
+        }
+    }
+
+    if module_enabled Auto-Totem-Slot-5 {
+        if_not inventory_slot 5 :totem_of_undying {
+            gui_quickmove :totem_of_undying 5
+        }
+    }
+
+    if module_enabled Auto-Totem-Slot-6 {
+        if_not inventory_slot 6 :totem_of_undying {
+            gui_quickmove :totem_of_undying 6
+        }
+    }
+
+    if module_enabled Auto-Totem-Slot-7 {
+        if_not inventory_slot 7 :totem_of_undying {
+            gui_quickmove :totem_of_undying 7
+        }
+    }
+
+    if module_enabled Auto-Totem-Slot-8 {
+        if_not inventory_slot 8 :totem_of_undying {
+            gui_quickmove :totem_of_undying 8
+        }
+    }
+
+    if module_enabled Auto-Totem-Slot-9 {
+        if_not inventory_slot 9 :totem_of_undying {
+            gui_quickmove :totem_of_undying 9
+        }
+    }
+
+}
+
+on pre_tick {
+if input_active inventory {
+   if hotbar_count :totem_of_undying >= 1 {
+    module disable MainhandTotem
+        }
+    }
+
+if_not input_active inventory {
+    module disable MainhandTotem
+    }
+}

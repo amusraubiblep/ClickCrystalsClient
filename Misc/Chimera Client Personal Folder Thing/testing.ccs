@@ -1,17 +1,23 @@
 def module testing
 
-on tick if playing if blocking {
-    send "hi"
+on module_enable {
+    func test
 }
 
-on tick if playing {
-    as client if blocking {
-    send "hi"
-    }
-}
+def func test {
+    wait 0.001 then execute {
 
-on tick if playing {
-    as client if moving {
-        send "hi"
+        if playing if module_enabled testing {
+            wait 0.002 {
+            send hia
+            wait 4 {
+                // aa
+            }
+            }
+        }
+
+        wait 0.05 {
+            func test
+        }
     }
 }

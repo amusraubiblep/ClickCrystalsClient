@@ -41,8 +41,11 @@ on module_enable while 0.05 module_enabled Auto-Crystal if playing if module_dis
     }
 }
 
-def func doCrystal {
+on pre_tick if playing if module_disabled Fast-Place-Vanilla if module_enabled On-DMG-Tick {
+    func doCrystal
+}
 
+def func doCrystal {
     if module_enabled Switch-To-Crystal {
         if target_block :obsidian {
             if_not holding :end_crystal {
@@ -84,12 +87,40 @@ def func doCrystal {
 
     if module_disabled Fast-Place-Vanilla {
     if holding #crystal {
-        if target_block #obsidian if_not input_active key P {
-            input key P
+        if target_block #obsidian {
+
+        if module_enabled On-DMG-Tick {
+            as nearest_entity :player {
+
+                if hurt_time >= 0 if hurt_time 0.00000000000001 if_not input_active key P if_not input_active key P if_not input_active key P {
+                input key P
+                }
+
+            }
         }
 
-        if target_entity :end_crystal if_not input_active key O {
+        if_not input_active key P if module_disabled On-DMG-Tick {
+            input key P
+            }
+
+        }
+
+        if target_entity :end_crystal  {
+
+        if module_enabled On-DMG-Tick {
+            as nearest_entity :player {
+
+                if hurt_time >= 0 if hurt_time <= 0.00000000000001 if_not input_active key O if_not input_active key O if_not input_active key O {
+                input key O
+                }
+
+            }
+        }
+
+        if_not input_active key O if module_disabled On-DMG-Tick {
             input key O
+                }
+
             }
         }
     }    
@@ -98,7 +129,7 @@ def func doCrystal {
         if holding :end_crystal {
             if target_entity :end_crystal {
                 input key O
+                }
             }
         }
     }    
-}

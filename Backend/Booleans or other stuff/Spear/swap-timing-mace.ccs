@@ -1,0 +1,22 @@
+def module swap-timing-mace
+
+on module_enable wait 0.1 {
+    module disable swap-timing-mace
+}
+
+on tick if playing if module_disabled Work-With-Triggerbot-SR if module_disabled sh-breaker-switch-cooldown-SR if module_enabled Spear-Reach if falling if vel_y <= -0.45 {
+    if holding #mace {
+        if entity_in_range :player 4.8 if_not entity_in_range :player 3 {
+            if entity_in_fov :player 40 {
+                switch #_spear
+            }
+        }
+    }
+
+    if holding #_spear {
+        if hotbar_has #mace if targeting_entity {
+            switch #mace
+            input attack   
+        }
+    }
+}

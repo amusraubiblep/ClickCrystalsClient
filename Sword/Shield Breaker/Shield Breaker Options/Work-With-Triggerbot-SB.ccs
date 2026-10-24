@@ -1,0 +1,6 @@
+def module Work-With-Triggerbot-SB
+def desc "WILL AUTO TURN ON Triggerbot, times shield break with tbot"
+
+on module enable {
+    module enable Triggerbot
+}

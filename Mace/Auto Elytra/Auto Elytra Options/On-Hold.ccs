@@ -1,0 +1,10 @@
+def module On-KB-Hold-Auto-Elytra
+def desc "Middle click me if you are planning to use this!"
+
+on key_press E if playing { // CHANGE KEY_PRESS (E) to ANY KEY
+    module enable Auto-Elytra-Keybind
+}
+
+on key_release E if playing { // CHANGE KEY_PRESS (E) to ANY KEY
+    module disable Auto-Elytra-Keybind
+}

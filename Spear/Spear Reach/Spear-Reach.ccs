@@ -1,4 +1,5 @@
 def module Spear-Reach
+def desc "Uses the reach of the spear and attribute swaps"
 
 on module_enable {
     module enable SR-On-Sword
@@ -6,20 +7,49 @@ on module_enable {
 
 // dtc if 30-40 fov and 4.75 range (for on tick input attack)
 
-on left_click if playing if module_enabled SR-On-Sword {
+on left_click if playing if module_enabled SR-On-Mace if module disabled sh-breaker-switch-cooldown-SR if module_disabled Auto-Mace if_not input_active use {
+    if holding #mace {
+        module enable swap-timing-mace
+        }
+    }
+
+on left_click if playing if module_enabled SR-On-Sword if module disabled sh-breaker-switch-cooldown-SR if module_disabled stunSlamPrioritized if_not input_active use {
     if holding #_sword {
         module enable swap-timing-sword
         }
     }
 
 
-on left_click if playing if module_enabled SR-On-Axe {
+on left_click if playing if module_enabled SR-On-Axe if module disabled sh-breaker-switch-cooldown-SR if module_disabled stunSlamPrioritized if_not input_active use {
     if holding #_axe {
         module enable swap-timing-axe
         }
     }
 
-
-on left_click if playing if module_enabled Spear-Shield-Deleter {
+on left_click if playing if module_enabled Spear-Shield-Deleter if module_disabled stunSlamPrioritized if_not input_active use {
         module enable swap-timing-deleter
     }
+
+// ---------------------------- spear reach shield break ------------------------------------------------
+
+on left_click if playing if_not input_active attack if_not input_active use if module_enabled On-Hit if module enabled Work-With-Shield-Breaker if module_enabled Spear-Reach if_not input_active use {
+    if entity_in_fov :player 40 if entity_in_range :player 5 if not entity in range :player 3 {
+                as nearest_entity :player if blocking if module_disabled lazy-axe-breaker-thing {
+                    module enable swap-timing-sh-breaker-on-hit
+                    }
+                }
+            }
+
+on tick if playing if_not input_active attack if_not input_active use if module_enabled Automatic if module enabled Work-With-Shield-Breaker if module_enabled Spear-Reach if_not input_active use {
+     if entity_in_fov :player 40 if entity_in_range :player 5 if not entity in range :player 3 {
+                as nearest_entity :player if blocking if module_disabled lazy-axe-breaker-thing {
+                    as nearest_entity :player if line_of_sight {
+                    if module_disabled switch-cooldown-sh-b2 if module_disabled switch-cooldown-sh-b2 if module_disabled switch-cooldown-sh-b2 if module_disabled switch-cooldown-sh-b2 if module_disabled switch-cooldown-sh-b2 if module_disabled switch-cooldown-sh-b2 if module_disabled switch-cooldown-sh-b2 if module_disabled switch-cooldown-sh-b2 if module_disabled switch-cooldown-sh-b2 {
+                    module enable sh-breaker-switch-cooldown-SR
+                            }
+                        }
+                    }
+                }
+            }
+
+// -------------------------------------------------------------------------------------

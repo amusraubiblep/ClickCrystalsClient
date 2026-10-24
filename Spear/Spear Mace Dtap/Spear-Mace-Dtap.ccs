@@ -1,0 +1,9 @@
+def module Spear-Mace-Dtap
+
+on tick if playing if falling if vel_y <= -0.45 {
+    if holding #_spear if input_active right {
+        as nearest_entity :player if hurt_time > 0.05 if entity_in_fov :player 40 {
+            switch #mace[density] then input attack
+        }
+    }
+}

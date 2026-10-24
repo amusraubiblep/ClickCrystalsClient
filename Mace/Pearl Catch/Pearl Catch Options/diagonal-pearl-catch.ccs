@@ -1,0 +1,114 @@
+def module Diagonal-Pearl-Catch 
+def desc "Bind something to me, looks only at -30 and can flag however"
+
+on module_enable if playing {
+
+    input lock_cursor
+
+    if_not gliding {
+
+        if vel_x <= 0.55 if vel_x >= -0.55 if vel_z <= 0.55 if vel_z >= -0.55 {
+
+            if on_ground {
+                snap_to polar -30 ~
+                switch #pearl then input right
+                wait 0.15 {
+
+                    if_not sprinting {
+                        snap_to polar -16 ~
+                    }
+
+                    if sprinting {
+                        snap_to polar -19 ~
+                    }
+
+                    func strafe-PC
+
+                    switch #wind_charge then input right
+                    module disable Diagonal-Pearl-Catch
+                }
+            }
+
+            if_not on_ground {
+                snap_to polar -30 ~
+                switch #pearl then input right
+                wait 0.15 {
+
+                    if_not sprinting {
+                        snap_to polar ~5 ~
+                    }
+
+                    if sprinting {
+                        snap_to polar ~4 ~
+                    }
+
+                    func strafe-PC
+
+                    switch #wind_charge then input right
+                    module disable Diagonal-Pearl-Catch
+                }
+            }
+        }
+
+        if vel_x > 0.55 {
+            func spear-PC
+        }
+
+        if vel_x < -0.55 {
+            func spear-PC
+        }
+
+        if vel_z > 0.55 {
+            func spear-PC
+        }
+
+        if vel_z < -0.55 {
+            func spear-PC
+        }
+    }
+
+    if gliding if equipment_has :elytra {
+
+        snap_to polar -30 ~
+        switch #pearl then input right
+        wait 0.0667 {
+
+            if vel_y > -0.2 {
+                snap_to polar ~8 ~
+            }
+
+            if vel_y < -0.2 {
+                snap_to polar ~9 ~
+            }
+
+            switch #wind_charge then input right
+            module disable Diagonal-Pearl-Catch
+        }
+    }
+}
+
+on module_disable if playing wait 0.02 {
+    input unlock_cursor
+}
+
+def func strafe-PC {
+    if input_active strafe_left {
+        snap_to polar ~ ~1
+    }
+
+    if input_active strafe_right {
+        snap_to polar ~ ~-1
+    }
+}
+
+def func spear-PC {
+    if_not on_ground {
+        snap_to polar -30 ~
+        switch #pearl then input right
+        wait 0.05 {
+            snap_to polar ~7 ~
+            switch #wind_charge then input right
+            module disable Diagonal-Pearl-Catch
+        }
+    }
+}

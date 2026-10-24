@@ -1,0 +1,9 @@
+def module isGliding
+
+on tick if playing {
+    if equipment_has #_chestplate {
+        module disable Auto-Elytra-Keybind
+        module disable Auto-Elytra
+        module disable isGliding
+    }
+}

@@ -1,0 +1,13 @@
+def module GA-Timer
+
+on tick if playing if on_ground {
+    module disable Spear-Ground-Attack
+    module disable GA-Timer
+    hold_input cancel
+}
+
+on tick if playing if not holding #_spear {
+    module disable Spear-Ground-Attack
+    module disable GA-Timer
+    hold_input cancel
+}

@@ -1,0 +1,5 @@
+def module spear-PC
+
+on module_enable if playing {
+
+    }

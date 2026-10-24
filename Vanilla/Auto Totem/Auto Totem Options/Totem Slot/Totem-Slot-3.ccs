@@ -1,0 +1,12 @@
+def module Auto-Totem-Slot-3
+
+on module_enable {
+    module disable Auto-Totem-Slot-1
+    module disable Auto-Totem-Slot-2
+    module disable Auto-Totem-Slot-4
+    module disable Auto-Totem-Slot-5
+    module disable Auto-Totem-Slot-6
+    module disable Auto-Totem-Slot-7
+    module disable Auto-Totem-Slot-8
+    module disable Auto-Totem-Slot-9
+}

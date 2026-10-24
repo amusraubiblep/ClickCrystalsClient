@@ -1,0 +1,15 @@
+def module Offhand-while-Chaining
+def desc "If you dont open inventory in 0.25 seconds and they are not moving, you switch to totem and offhand"
+
+on totem_pop if playing if hotbar_has :totem_of_undying wait 0.25 {
+    as nearest_entity :player if_not moving {
+        if_not holding :totem_of_undying {
+            if_not input_active inventory {
+            switch :totem_of_undying
+                wait 0.1 {
+                swap
+                }
+            }
+        }
+    }
+}

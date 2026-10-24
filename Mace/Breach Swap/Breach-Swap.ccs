@@ -1,0 +1,27 @@
+def module Breach-Swap-
+
+on left_click if playing if module_disabled While-Holding-RMB {
+    if hotbar_has :mace[breach] {
+        if targeting_entity {
+            as target_entity if_not blocking {
+            switch :mace[breach]
+            wait 0.05 {
+                switch back
+                }
+            }
+        }
+    }
+}
+
+on left_click if playing if module_enabled While-Holding-RMB if input_active right {
+    if hotbar_has :mace[breach] {
+        if targeting_entity {
+            as target_entity if_not blocking {
+            switch :mace[breach]
+            wait 0.05 {
+                switch back
+                }
+            }
+        }
+    }
+}

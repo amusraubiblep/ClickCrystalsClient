@@ -1,0 +1,40 @@
+def module OffhandTotem
+
+
+
+on module enable if input_active inventory {
+
+    if module_enabled 25%-Chance-AT {
+        if chance_of 25 {
+            module disable MainhandTotem
+        }
+    }
+
+    if module_enabled 50%-Chance-AT {
+        if chance_of 50 {
+            module disable MainhandTotem
+        }
+    }
+
+    if module_enabled 75%-Chance-AT {
+        if chance_of 75 {
+            module disable MainhandTotem
+        }
+    }
+
+    if_not off_holding :totem_of_undying {
+        gui_swap :totem_of_undying
+    }
+}
+
+on pre_tick {
+if input_active inventory {
+   if off_holding :totem_of_undying {
+    module disable OffhandTotem
+        }
+    }
+
+if_not input_active inventory {
+    module disable OffhandTotem
+    }
+}

@@ -1,0 +1,9 @@
+def module sh-breaker-switch-cooldown-SR
+
+
+on module enable if playing if module enabled Spear-Reach if module enabled Work-With-Shield-Breaker if module_disabled stunSlamPrioritized {
+module enable swap-timing-sh-breaker
+    wait 0.1 {
+        module disable sh-breaker-switch-cooldown-SR
+        }
+    }

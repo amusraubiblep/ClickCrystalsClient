@@ -1,0 +1,476 @@
+
+def module Combat-System
+on module_enable {
+   func tbot
+   func mace
+   func elytra
+   func elytramace
+   func stunWeb
+   func CrystalAutoTotem
+   func SMPAutoTotem
+}
+on tick if playing if falling if vel_y <= -0.54 {
+   if holding #_spear {
+      if_not input_active use if target_entity :player {
+         as target_entity if blocking {
+            switch #_axe
+            input attack
+         }
+         as target_entity if_not blocking {
+            func macePrioritization
+            input attack
+         }
+      }
+      if input_active use if entity_in_range :player 90 {
+         as nearest_entity :player {
+            if hurt_time > 0 {
+               func macePrioritization
+               input attack
+            }
+         }
+      }
+   }
+}
+
+on tick {
+	wait_random 0.001 0.002 {
+
+		if playing if hotbar_has #_spear {
+			if holding #_sword,#_axe if attack_progress >= 0.9 if vel_y > -0.56 if_not block ~ ~-3 ~ :air {
+				if entity_in_fov :player 40 {
+					if_not targeting_entity {
+						if entity_in_range :player 4.65 if_not entity_in_range :player 3 {
+							wait_random 0.002129381 0.01121093 {
+							switch #_spear then {
+								wait 0.001 {
+									if_not holding #_sword,#_axe {
+										input key 1
+
+										if on_ground {
+										input left
+										}
+
+										if_not on_ground if falling if vel_y <= -0.2 {
+										input left
+										}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+def func elytra {
+   wait_random 0.002 0.005 {
+      if playing if falling if gliding if entity_in_fov :player 80 if equipment_has :elytra if_not input_active use if attack_progress >= 0.05 {
+         if vel_y < -0.45 if_not entity_in_range #firework 1 {
+            as nearest_entity :player if_not blocking {
+               if entity_in_range :player 7 {
+                  if_not equipment_has #_chestplate {
+                     switch #_chestplate
+                     input right
+                     if target_entity :player {
+                        func mace
+                     }
+                  }
+               }
+            }
+            as nearest_entity :player {
+               if blocking {
+                  if entity_in_range :player 10 {
+                     if_not equipment_has #_chestplate {
+                        switch #_chestplate
+                        input right
+                        if target_entity :player {
+                           func stunSlam
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+      func elytra
+   }
+}
+def func elytramace {
+   wait_random 0.002 0.003 {
+      if playing if falling if gliding if entity_in_fov :player 80 if equipment_has :elytra if_not input_active use if attack_progress >= 0.0025 {
+         if vel_y < -0.3 if entity_in_range #firework 1 {
+            as nearest_entity :player if_not blocking {
+               if entity_in_range :player 11 {
+                  if_not equipment_has #_chestplate {
+                     switch #_chestplate
+                     input right
+                     wait 0.05 {
+                        if targeting_entity {
+                           func macePrioritization
+                           input left
+                        }
+                     }
+                  }
+               }
+            }
+            as nearest_entity :player {
+               if blocking {
+                  if entity_in_range :player 13.5 {
+                     if_not equipment_has #_chestplate {
+                        switch #_chestplate
+                        input right
+                        wait 0.05 {
+                           if targeting_entity {
+                              switch #_axe
+                              input left
+                              wait 0.05 {
+                                 func macePrioritization
+                                 input left
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+      func elytramace
+   }
+}
+def func macePrioritization {
+   if_not holding #mace {
+      if hotbar_has :mace[density] {
+         switch :mace[density]
+      }
+      if_not hotbar_has :mace[density] if hotbar_has :mace[breach] {
+         switch :mace[breach]
+      }
+      if_not hotbar_has :mace[breach] if_not hotbar_has :mace[density] {
+         if hotbar_has #mace {
+            switch #mace
+         }
+      }
+   }
+}
+def func mace {
+   wait_random 0.002 0.003 {
+      if playing if module_enabled Combat-System {
+         if hotbar_has #mace if_not holding #_spear {
+            if vel_y <= -0.55 if falling if entity_in_range :player 3.5 {
+               if target_entity :player if_not input_active left {
+                  as target_entity if_not blocking {
+                     if_not gliding if_not input_active sneak {
+                        if_not holding #mace if_not input_active left if_not input_active attack {
+                           func macePrioritization
+                           input left
+                        }
+                        if holding #mace {
+                           input left
+                        }
+                     }
+                     if input_active sneak if_not input_active attack if_not input_active use {
+                        switch :mace[breach]
+                        input left
+                        wait 0.05 {
+                           switch back
+                        }
+                     }
+                  }
+                  as target_entity if blocking if_not input_active left if_not input_active attack {
+                     if hotbar_has #_axe if_not input_active attack {
+                        if_not gliding if_not input_active sneak {
+                           func stunSlam
+                        }
+                        if input_active sneak {
+                           switch #_axe
+                           input left
+                           wait_random 0.05001928310923 0.15231223123 {
+                              switch :mace[breach]
+                              input left
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+      wait_random 0.002 0.0036 {
+         func mace
+      }
+   }
+}
+def func stunSlam {
+   if_not holding #_axe,#mace {
+      switch #_axe
+      input left
+      wait_random 0.0501928310923 0.15231223123 {
+         func macePrioritization
+         input left
+      }
+   }
+}
+
+on left_click if playing if on_ground if_not input_active use if_not in_screen {
+   if target_entity :player if attack_progress >= 0.9 if holding #_sword,#_axe {
+      func resetDecider
+   }
+}
+
+def func tbot {
+   wait_random 0.002 0.003 {
+      if playing if module_enabled Combat-System if_not in_screen if target_entity :player {
+         if holding #_sword,#_axe if_not input_active use {
+            if attack_progress >= 0.9 if target_entity :player if_not input_active left {
+               as target_entity if_not blocking if chance_of 90 {
+                  if on_ground {
+                     wait_random 0.0052358 0.022139 {
+
+                     as target_entity if on_ground {
+                        if_not input_active attack if chance_of 85 {
+                           input left
+                           func inputCancel
+                        }
+                     }
+
+                     }
+                  }
+                  if_not on_ground if falling {
+                     wait_random 0.0052358 0.022139 {
+                        if_not input_active attack {
+                           if hotbar_has :mace[breach] {
+                              switch :mace[breach]
+                              input left
+                              wait 0.05 {
+                                 switch back
+                              }
+                           }
+                           if_not hotbar_has :mace[breach] if chance_of 85 {
+                              input left
+                           }
+                        }
+                     }
+                  }
+                  if block_in_range :cobweb 0.9 {
+                     wait_random 0.0052358 0.022139 {
+                        if_not input_active attack if chance_of 85 {
+                           input left
+                        }
+                     }
+                  }
+                  if swimming {
+                     wait_random 0.0052358 0.012139 {
+                        if_not input_active attack if chance_of 85 {
+                           input left
+                        }
+                     }
+                  }
+               if on_ground {
+                     wait_random 0.0052358 0.012139 {
+                     as target_entity if_not on_ground if_not falling {
+                        if_not input_active attack if chance_of 85 {       
+                           input left
+                           func inputCancel
+                           }
+                        }
+                     }
+                  }
+               }
+               if_not hotbar_has #mace {
+                  as target_entity if blocking if chance_of 90 {
+                     wait_random 0.01 0.03 if_not input_active attack {
+                        if hotbar_has #_axe if_not holding #_axe {
+                           switch #_axe
+                        }
+                        if holding #_axe if chance_of 85 {
+                           input left
+                           wait_random 0.0667 0.1 {
+                              switch back
+                              input left
+                           }
+                        }
+                     }
+                  }
+               }
+               if hotbar_has #mace {
+                  as target_entity if blocking if chance_of 90 {
+                     wait_random 0.01 0.03 if_not input_active attack {
+                        if hotbar_has #_axe if_not holding #_axe if vel_y > -0.55 if_not block ~ ~-2 ~ :air {
+                           switch #_axe
+                        }
+                        if holding #_axe {
+                           input left
+                           wait_random 0.0667 0.1 {
+                              switch back
+                              input left
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+      wait_random 0.00466 0.0054 {
+         func tbot
+      }
+   }
+}
+def func resetDecider {
+   if entity_in_range :player 3.1 {
+      if_not entity_in_range :player 2.5 {
+         input key S
+      }
+      if entity_in_range :player 2.5 {
+         execute_random {
+            hold_input key S 0.25
+            hold_input key S 0.3
+            hold_input key S 0.35
+         }
+      }
+   }
+}
+def func inputCancel {
+   if entity_in_range :player 3.5 if_not entity_in_range :player 2.75 {
+      hold_input cancel
+   }
+}
+on tick if playing if_not input_active right {
+   // 1: bucket drain
+   if hotbar_has :bucket if_not target_block :cobweb {
+      if_not block_in_range :water_source 1.5 {
+         if block_in_range :water_source 5 {
+            if target_fluid :water_source {
+               if_not input_active use {
+                  switch :bucket
+                  input right
+               }
+            }
+         }
+      }
+   }
+   // 2: web drain
+   if hotbar_has :cobweb if target_block :cobweb {
+      if_not block_in_range :water_source 1.5 {
+         if block_in_range :water_source 5 {
+            if target_fluid :water_source {
+               if_not input_active use if entity_in_fov :player 75 {
+                  switch :cobweb
+                  input right
+               }
+            }
+         }
+      }
+   }
+   // 3: block drain
+   if hotbar_has #plank,#log,#stone if_not target_block :cobweb if_not hotbar_has :bucket {
+      if_not block_in_range :water_source 1.5 {
+         if block_in_range :water_source 5 {
+            if target_fluid :water_source if targeting_block {
+               if_not input_active use if_not entity_in_fov :player 45 {
+                  switch #plank,#log,#stone
+                  input right
+               }
+            }
+         }
+      }
+   }
+}
+def func stunWeb {
+   wait_random 0.002 0.004 {
+      if playing if_not target_block :cobweb if_not input_active right {
+         if hotbar_has :cobweb {
+            if module_enabled Ghost-Totem {
+               if targeting_block {
+                  switch :cobweb
+                  input right
+                  module disable Ghost-Totem
+                  wait_random 0.05 0.1 if_not block ~ ~-2 ~ :air {
+                        switch back
+                  }
+               }
+            }
+         }
+      }
+      func stunWeb
+   }
+}
+on sound_play #shield_break if holding #_axe,#_sword if target_entity :player {
+   if hotbar_has :cobweb {
+      module enable Ghost-Totem
+   }
+   wait 0.5 {
+      module disable Ghost-Totem
+   }
+}
+on damage if playing if holding #_sword,#_axe {
+   while_not 0.015 on_ground if falling {
+      if attack_progress > 0.85 if_not input_active left {
+         if target_entity :player {
+            input left
+         }
+         if entity_in_fov :player 90 if_not target_entity :player if entity_in_range :player 4 {
+            if chance_of 15 {
+               input left
+            }
+         }
+      }
+   }
+}
+
+def func CrystalAutoTotem {
+   wait_random 0.015 0.0667 if module_enabled Combat-System {
+
+         if hotbar_has #crystal,#anchor {
+            if hotbar_has #obsidian,#glowstone {
+               if input_active inventory {
+                  if hovering_over :totem_of_undying {
+                     
+                     if_not off_holding :totem_of_undying {
+                        input key F
+                     }
+
+                     if_not hotbar_count :totem_of_undying >= 1 {  
+                        input key H
+                     }
+                  }
+               }
+            }
+         }
+
+      wait_random 0.001 0.002 {
+         func CrystalAutoTotem
+      }
+   }
+}
+
+def func SMPAutoTotem {
+   wait_random 0.015 0.0667 if module_enabled Combat-System {
+
+         if_not hotbar_has #crystal,#anchor {
+            if_not hotbar_has #obsidian,#glowstone {
+               if hotbar_has :totem_of_undying if_not input_active use if_not input_active attack {
+                  if hurt_time > 0.1 {
+                     if health < 10 if_not off_holding :totem_of_undying {
+                        if_not holding :totem_of_undying {
+                        switch :totem_of_undying
+                        input key F
+                        }
+                        wait 0.05 {
+
+                     }
+                  }
+               }
+            }
+         }
+
+      wait_random 0.001 0.002 {
+         func SMPAutoTotem
+         }
+      }
+   }
+}

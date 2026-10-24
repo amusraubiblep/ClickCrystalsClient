@@ -1,0 +1,15 @@
+def module Offhand-Key
+def desc "Middle click on me and bind your key!"
+
+on module enable if input_active inventory if in_game {
+        wait_random 0.012131391238901827354780231801723981273 0.0229312938104098
+    // -------------------------------------------
+    // ----------- CHANGE KEY HERE ---------------
+    input key F
+    // ----------- CHANGE KEY HERE ---------------
+    // -------------------------------------------
+    module disable Offhand-Key
+}
+
+// Note: Mouse buttons are not possible, please rebind your mouse buttons
+// If you are using them.

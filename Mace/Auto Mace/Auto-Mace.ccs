@@ -1,7 +1,25 @@
 def module Auto-Mace 
 def desc "Maces for you"
 
-on module_enable while 0.001 module_enabled Auto-Mace as client if playing {
+on module_enable {
+    if module_enabled SR-On-Mace {
+        module enable spear-maceswap
+    }
+}
+
+on module_enable while 0.001 module_enabled Auto-Mace as client if playing if not holding #_spear if_not input_active use if module_disabled On-Click if_not gliding {
+    if hotbar_has #mace {
+        if falling if vel_y < -0.45 {
+            if target_entity :player {
+                if_not input_active attack {
+                    func decision
+                }
+            }
+        }
+    }
+}
+
+on left_click as client if playing if not holding #_spear if_not input_active use if module_enabled On-Click if_not gliding {
     if hotbar_has #mace {
         if falling if vel_y < -0.45 {
             if target_entity :player {

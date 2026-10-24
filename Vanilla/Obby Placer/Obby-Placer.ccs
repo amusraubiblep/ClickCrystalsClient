@@ -9,7 +9,7 @@ on module_disable {
    module disable nextPhase
    module disable nextPhase2
 }
-on module_enable while 0.001 module_enabled Obby-Placer if playing if_not target_entity :end_crystal if_not holding #shield if_not off_holding #shield if_not target_block #obsidian,#bedrock,#air {
+on module_enable while 0.005 module_enabled Obby-Placer if playing if_not target_entity :end_crystal if_not holding #shield if_not off_holding #shield if_not target_block #obsidian,#bedrock,#air {
    if_not module_enabled nextPhase {
       if hotbar_has #obsidian,#end_crystal if_not target_block #obsidian,#bedrock {
          if_not targeting_entity {

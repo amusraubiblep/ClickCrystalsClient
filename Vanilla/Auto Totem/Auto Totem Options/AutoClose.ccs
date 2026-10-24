@@ -1,0 +1,6 @@
+def module Auto-Close-AT
+def desc "Closes your inventory for you."
+
+on totem_pop if playing {
+    module enable AT-Closer
+}

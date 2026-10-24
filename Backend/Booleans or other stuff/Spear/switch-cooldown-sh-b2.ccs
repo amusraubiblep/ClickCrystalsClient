@@ -1,0 +1,5 @@
+def module switch-cooldown-sh-b2
+
+on module_enable wait 0.2 {
+    module disable switch-cooldown-sh-b2
+}

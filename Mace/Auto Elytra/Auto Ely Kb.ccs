@@ -1,0 +1,9 @@
+def module Auto-Elytra-Keybind
+
+on module_enable if playing {
+    module enable Auto-Elytra
+}
+
+on module_disable if playing {
+    module disable Auto-Elytra
+}

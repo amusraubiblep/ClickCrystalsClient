@@ -10,4 +10,27 @@ on module_disable if playing if module_disabled On-Keybind {
 
 on module_enable if module_enabled On-Keybind {
 module enable lazy-axe-breaker-thing
+wait 0.05 {
+func isSwapback
+    }
+}
+
+def func isSwapback {
+    if module_enabled Swap-Back {
+        if module_enabled One-Tick-Swap {
+            switch back
+        }
+
+        if module_enabled Two-Tick-Swap {
+            wait 0.05 {
+                switch back
+            }
+        }
+
+        if module_enabled Three-Tick-Swap {
+            wait 0.10 {
+                switch back
+            }
+        }
+    }
 }

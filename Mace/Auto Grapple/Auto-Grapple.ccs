@@ -1,0 +1,33 @@
+def module Auto-Grapple
+
+on module enable if playing {
+    module enable Trajectories
+    func main
+}
+
+on module disable if playing {
+    module disable Trajectories
+}
+
+def func main {
+wait_random 0.001 0.002 {
+if playing if module_enabled Auto-Grapple {
+    switch #ender_pearl
+    as nearest_entity :player {
+        
+        if vel_y > 0.6 if_not vel_y <= 0.8 {
+            snap_to nearest_entity :player
+            snap_to polar ~-12.5 ~
+            }
+        }
+
+
+        }
+func main
+    }
+}
+
+
+on right_click if playing {
+    module disable Auto-Grapple
+}

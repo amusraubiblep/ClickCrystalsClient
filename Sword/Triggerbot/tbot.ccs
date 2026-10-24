@@ -1,193 +1,264 @@
 def module Triggerbot
 def desc "Automatically hits people when using a sword or axe"
+
 def func wait {
-   wait_random 0.0013 0.0239967
+	wait_random 0.0013 0.0239967
 }
 
-on tick if playing if module_enabled Work-With-Triggerbot-SR {
-    if holding #_sword {
-        if entity_in_range :player 4.8 if_not entity_in_range :player 3 {
-            if entity_in_fov :player 40 if attack_progress >= 0.903 {
-                switch #_spear
-                hold_input left 0.1
-                wait 0.05 {
-                    hold_input cancel
-                }
-            }
-        }
-    }
+on tick {
+	if playing {
+		if module_enabled Work-With-Triggerbot-SR {
+			if module_enabled Spear-Reach {
+				as nearest_entity :player if_not blocking {
+					if_not vel_y <= -0.45 {
+						if holding #_sword {
+							as nearest_entity :player if_not blocking {
+								if entity_in_range :player 4.8 {
+									if_not entity_in_range :player 3 {
+										as nearest_entity :player if_not blocking {
+											if entity_in_fov :player 40 {
+												if attack_progress >= 0.903 {
+													switch #_spear
+													hold_input attack 0.1
 
-    if holding #_spear {
-        if hotbar_has #sword if targeting_entity if attack_progress >= 0.05 {
-            switch #_sword
-            input attack   
-        }
-    }
+													wait 0.05 {
+														hold_input cancel
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+
+						if holding #_spear {
+							as nearest_entity :player if_not blocking {
+								if hotbar_has #sword {
+									if targeting_entity {
+										if attack_progress >= 0.05 {
+											switch #_sword
+											input attack
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-
-on module_enable while 0.003 module_enabled Triggerbot as client {
-   if holding #sword,#_axe {
-      if playing {
-
-if module_enabled Early_Hit {
-      if_not entity_in_range :player 2.5 if entity_in_range :player 4 if entity_in_fov :player 40 {
-            if_not input_active attack if attack_progress >= 0.903 if input_active key W {
-               func missHitChance
-        }
-    }
-}
-         if targeting_entity {
-
-            as target_entity if_not blocking {
-            
-               if chance_of 40 {
-                  func wait
-               }
-
-               wait_random 0.001 0.045
-
-               as client if attack_progress >= 0.903 {
-
-                  as target_entity if hurt_time == 0 as target_entity if_not blocking {
-
-                  if module_disabled Crit-Priority {
-
-                     if chance_of 90 as target_entity if_not blocking {
-
-                              if_not input_active attack {
-                                 input left
-                           }
-                        }  
-                     }
-                  }
-               }
-
-
-               as target_entity if hurt_time == 0 as target_entity if_not blocking {
-
-                  if module_enabled Crit-Priority as target_entity if_not blocking {
-
-                     if chance_of 90 {
-                        if_not on_ground if falling {
-                           if vel_y < -0.2 {
-                              if_not input_active attack if attack_progress >= 0.903 {
-                                 input left
-                                 }
-                              }
-                           }
-                        }
-
-                     if chance_of 90 {
-                        if on_ground if_not falling if vel_y > -0.1 if attack_progress >= 0.903 {
-                           if_not input_active attack {
-                                 input left
-                           }
-                        }
-                     }
-                  }
-                     
-            
-               if chance_of 90 {
-                  if_not falling {
-                     if_not input_active attack if attack_progress >= 0.903 {
-                        if block_in_range :cobweb 0.9 {
-                           input left
-                        }
-                        if swimming {
-                           input left
-                           }
-                        }  
-                     }
-                  }
-               }
-            }
-
-         if module_enabled Shield-Breaker {
-            if module_enabled Automatic {
-            as target_entity if blocking if attack_progress >= 0.85 if hotbar_has #_axe if_not input_active attack {
-               as target_entity if hurt_time == 0 {
-                func wait
-                input left
-                  }
-               }
-            }
-         }
-         
-         if module_enabled Attack-Shield {
-            as target_entity if blocking if attack_progress >= 0.903 if hotbar_has #_axe if_not input_active attack {
-               as target_entity if hurt_time == 0 {
-                func wait
-                input key O
-               }
-            }
-         }
-
-         }  
-      }
-   }
+on module_enable {
+	func tbot
 }
 
-on damage if playing if holding #sword,#_axe {
+def func tbot {
+	wait_random 0.001 0.003 {
+		if holding #sword,#_axe {
+			if playing {
+				if module_enabled Triggerbot {
+					if module_enabled Early_Hit {
+						if_not entity_in_range :player 2.5 {
+							if entity_in_range :player 4 {
+								if entity_in_fov :player 40 {
+									if attack_progress >= 0.9 {
+										if input_active key W {
+											func missHitChance
+										}
+									}
+								}
+							}
+						}
+					}
 
-if module_enabled Miss-Hits-on-DMG {
-    if entity_in_fov :player 60 {
-        if entity_in_range :player 3.6 {
-                if_not target_entity :player {
-                    if attack_progress >= 0.903 {
-                  func onDMGMissChance
-               }
-            }
-        }
-    }
+					if target_entity :player {
+						as target_entity if_not blocking {
+							if chance_of 40 {
+								func wait
+							}
+
+							wait_random 0.001 0.045
+
+							if attack_progress >= 0.9 {
+								as target_entity if_not blocking {
+									if module_disabled Crit-Priority {
+										if chance_of 90 {
+											as target_entity if_not blocking {
+												if module_disabled tbothit {
+													if_not input_active attack {
+														input left
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+
+							as target_entity if_not blocking {
+								if module_enabled Crit-Priority {
+									as target_entity if_not blocking {
+										if chance_of 90 {
+											if_not on_ground {
+												if falling {
+													if vel_y < -0.2 {
+														if attack_progress >= 0.903 {
+															if_not input_active attack {
+																input left
+															}
+														}
+													}
+												}
+											}
+										}
+
+										if chance_of 90 {
+											if on_ground {
+												if_not falling {
+													if vel_y > -0.1 {
+														if attack_progress >= 0.903 {
+															if_not input_active attack {
+																input left
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+
+								if chance_of 90 {
+									if_not falling {
+										if attack_progress >= 0.903 {
+											if block_in_range :cobweb 0.9 {
+												if_not input_active attack {
+													input left
+												}
+											}
+
+											if swimming {
+												if_not input_active attack {
+													input left
+												}
+											}
+										}
+									}
+								}
+							}
+
+							if module_enabled Shield-Breaker {
+								if module_enabled Automatic {
+									as target_entity if blocking {
+										if attack_progress >= 0.85 {
+											if hotbar_has #_axe {
+												if_not input_active attack {
+													func wait
+													input left
+												}
+											}
+										}
+									}
+								}
+							}
+
+							if module_enabled Attack-Shield {
+								as target_entity if blocking {
+									if attack_progress >= 0.903 {
+										if hotbar_has #_axe {
+											if_not input_active attack {
+												as target_entity if hurt_time == 0 {
+													func wait
+													input key O
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		wait_random 0.001 0.002 {
+			func tbot
+		}
+	}
 }
 
-   if target_entity :player {
-        if falling {
-            if attack_progress >= 0.903 {
-                input left
-            }
-        }
-    }
+on damage {
+	if playing {
+		if holding #sword,#_axe {
+			if module_enabled Miss-Hits-on-DMG {
+				if entity_in_fov :player 60 {
+					if entity_in_range :player 3.6 {
+						if_not target_entity :player {
+							if attack_progress >= 0.903 {
+								func onDMGMissChance
+							}
+						}
+					}
+				}
+			}
 
+			if target_entity :player {
+				if falling {
+					if attack_progress >= 0.85 {
+						if_not input_active attack {
+							input left
+						}
+					}
+				}
+			}
+		}
+	}
 }
-
-// on damage -> jump reset using sound + if hurt_time
 
 def func missHitChance {
+	if module_enabled 10%-Chance-Early-Hit {
+		if chance_of 3.3 {
+			if_not input_active attack {
+				input left
+			}
+		}
+	}
 
-if module_enabled 10%-Chance-Early-Hit {
-   if chance_of 3.3 {
-   input left // early hit
-   }
-}
+	if module_enabled 25%-Chance-Early-Hit {
+		if chance_of 8.25 {
+			if_not input_active attack {
+				input left
+			}
+		}
+	}
 
-if module_enabled 25%-Chance-Early-Hit {
-   if chance_of 8.25 {
-   input left // early hit
-   }
-}
-
-if module_enabled 50%-Chance-Early-Hit {
-   if chance_of 16.5 {
-      input left
-   }
-}
-
+	if module_enabled 50%-Chance-Early-Hit {
+		if chance_of 16.5 {
+			if_not input_active attack {
+				input left
+			}
+		}
+	}
 }
 
 def func onDMGMissChance {
+	if module_enabled 50%-Chance-on-DMG {
+		if chance_of 50 {
+			if_not input_active attack {
+				input left
+			}
+		}
+	}
 
-if module_enabled 50%-Chance-on-DMG {
-   if chance_of 50 {
-   input left
-   }
-}
-
-if module_enabled 25%-Chance-on-DMG {
-   if chance_of 25 {
-   input left
-   }
-}
-
+	if module_enabled 25%-Chance-on-DMG {
+		if chance_of 25 {
+			if_not input_active attack {
+				input left
+			}
+		}
+	}
 }

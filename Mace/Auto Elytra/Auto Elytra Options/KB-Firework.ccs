@@ -1,0 +1,10 @@
+def module Keybind-Firework
+def desc "Right click on me to bind a key!"
+
+on module_enable if playing {
+    if hotbar_has :firework_rocket {
+        switch :firework_rocket
+        input right
+        module disable Keybind-Firework
+    }
+}

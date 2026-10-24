@@ -1,0 +1,28 @@
+def module Pearl-Catch
+
+on module_enable if playing {
+    if hotbar_has :ender_pearl {
+        if hotbar_has :wind_charge {
+            switch :ender_pearl
+            input key P
+            wait 0.06 {
+            switch :wind_charge
+            input key P
+            }
+        }
+    }
+}
+
+
+on middle_click if playing {
+    if hotbar_has :ender_pearl {
+        if hotbar_has :wind_charge {
+            switch :ender_pearl
+            input key P
+            wait 0.06 {
+            switch :wind_charge
+            input key P
+            }
+        }
+    }
+}

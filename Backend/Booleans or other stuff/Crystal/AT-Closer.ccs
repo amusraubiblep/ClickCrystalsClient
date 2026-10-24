@@ -1,0 +1,12 @@
+def module AT-Closer
+
+on pre_tick 2 if input_active inventory {
+    if hotbar_has :totem_of_undying {
+        if off_holding :totem_of_undying {
+
+            input inventory
+            module disable AT-Closer
+            
+        }
+    }
+}

@@ -1,0 +1,75 @@
+def module Auto-Elytra
+def desc "Equips elytra and glides"
+
+on module enable if playing {
+    if equipment_has #_chestplate {
+        func elytra
+    }
+
+    if equipment_has :elytra if module_enabled Re-Equip-Chestplate-On-Module-Enable {
+        func chestplate
+        module disable isFireworked
+    }
+
+}
+
+on module disable if playing if module_disabled Re-Equip-Chestplate-On-Module-Enable if module_enabled Re-Equip-Chestplate {
+    if equipment_has :elytra {
+        func chestplate
+        module disable isFireworked
+    }
+}
+
+on pre_tick if playing {
+    if equipment_has :elytra { 
+
+        if_not gliding {
+        input jump
+        }
+
+        if gliding {
+            
+            if module_disabled On-KB-Hold-Auto-Elytra {
+            module enable isGliding
+            }
+
+            if module_enabled Auto-Firework if module_disabled isFireworked {
+                if hotbar_has #firework_rocket {
+                    module enable isFireworked
+                    switch #firework_rocket
+                    input right
+                }
+            }
+
+            if module_disabled Elytra-Bounce {
+                module disable Auto-Elytra
+                module disable Auto-Elytra-Keybind
+            }
+
+            while 0.02 colliding_vertically if module_enabled Elytra-Bounce {
+
+                if module_enabled Alien-Wind-Charge {
+                    if targeting_block {
+                        if hotbar_has :wind_charge {
+                            switch :wind_charge
+                            input right
+                        }
+                    }
+                }
+
+                input jump
+            }
+        }
+    }
+}
+
+def func elytra {
+    input jump
+    switch :elytra
+    input right
+}
+
+def func chestplate {
+    switch #_chestplate
+    input right
+}

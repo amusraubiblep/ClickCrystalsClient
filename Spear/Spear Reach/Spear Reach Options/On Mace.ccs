@@ -1,1 +1,21 @@
 def module SR-On-Mace
+def desc "W/ Automace it spear reach swaps, dosent work on axe or mace itself rn tho"
+on module_enable {
+    module enable spear-maceswap
+}
+
+on tick if playing if module_enabled Auto-Mace if_not input_active right {
+    if falling if vel_y < -0.45 {
+        if holding #_spear {
+            if target_entity :player {
+            as target_entity if blocking {
+                switch #_axe then input attack
+                }
+
+            as target_entity if_not blocking {
+                switch #mace[density] then input attack
+                }
+            }
+        }
+    }
+}

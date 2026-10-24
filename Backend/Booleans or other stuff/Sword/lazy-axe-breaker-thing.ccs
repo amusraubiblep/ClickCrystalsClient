@@ -32,12 +32,41 @@ on module_enable if playing if module_enabled Swap-from-Inventory if module_disa
 }
 
 def func tempFunc {
-    as target_entity if blocking {
+    as target_entity if blocking if entity_in_range :player 3.2 {
         if_not holding #_axe if_not holding #_axe if_not holding #_axe if_not holding #_axe if_not holding #_axe {  
     switch #_axe
         }
 
     input left
+    }
+}
+
+def func spearFunc {
+    as nearest_entity :player if blocking {
+
+        if module enabled SR-On-Sword {
+            module disable SR-On-Sword
+            wait 0.1 {
+                module enable SR-On-Sword
+            }
+        }
+
+        if module enabled SR-On-Axe {
+            module disable SR-On-Axe
+            wait 0.1 {
+                module enable SR-On-Axe
+            }
+        }
+
+        if module enabled SR-On-Mace {
+            module disable SR-On-Mace
+            wait 0.1 {
+                module enable SR-On-Mace
+            }
+        }
+        if module_disabled swap-timing-sh-breaker {
+        module enable swap-timing-sh-breaker
+        }
     }
 }
 

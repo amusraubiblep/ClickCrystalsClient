@@ -1,0 +1,9 @@
+def module isFireworked
+
+on module enable {
+    wait 5 {
+        if module_enabled isFireworked {
+            module disable isFireworked
+        }
+    }
+}

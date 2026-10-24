@@ -1,0 +1,15 @@
+def module Spear-Ground-Attack
+def desc "Automatically swaps to spear, attacks, and holds right click"
+
+on right_click if playing if_not input_active inventory if hotbar_has #spear if_not off holding #shield if not holding #shield {
+    input jump
+    switch #_spear
+    input left
+    module disable Spear-Ground-Attack
+    }
+
+on module_enable if playing {
+    wait 0.2 {
+        module disable Spear-Ground-Attack
+    }
+}

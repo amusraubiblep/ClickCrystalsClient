@@ -4,7 +4,7 @@ on module_enable wait 0.1 {
     module disable swap-timing-deleter
 }
 
-on tick if playing if module_disabled Work-With-Triggerbot-SR {
+on tick if playing if module_disabled Work-With-Triggerbot-SR if module_disabled sh-breaker-switch-cooldown-SR if module_enabled Spear-Reach {
 as target_entity if blocking {
     if holding #_sword {
         if entity_in_range :player 4.8 if_not entity_in_range :player 3 {

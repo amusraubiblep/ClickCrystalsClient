@@ -1,0 +1,18 @@
+def module spear-maceswap
+
+on tick if playing {
+    if falling if entity_in_fov :player 40 if entity_in_range :player 7 {
+        if vel_y <= -0.45 {
+            if_not holding #_spear,#mace,#_axe {
+            module disable spear-maceswap
+            switch #_spear
+            }
+        }
+    }
+}
+
+on module_disable {
+    wait 0.1 if module_enabled Auto-Mace if module_enabled SR-On-Mace if module_enabled Spear-Reach {
+    module enable spear-maceswap
+    }
+}

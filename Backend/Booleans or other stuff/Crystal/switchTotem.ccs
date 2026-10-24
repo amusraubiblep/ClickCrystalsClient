@@ -1,0 +1,10 @@
+def module Switch-Totem
+
+on module_enable if playing {
+    switch :totem_of_undying
+
+    wait 0.05 {
+        module disable Switch-Totem
+    }
+
+}

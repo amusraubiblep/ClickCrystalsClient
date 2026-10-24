@@ -1,0 +1,7 @@
+def module SMP-Auto-Totem
+
+on module_enable {
+    if module_enabled Auto-Totem {
+        module disable Auto-Totem
+    }
+}

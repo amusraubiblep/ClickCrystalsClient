@@ -1,0 +1,8 @@
+def module 100%-Chance-AT
+def desc "100% Chance to totem per tick"
+
+on module enable {
+    module disable 50%-Chance-AT
+    module disable 25%-Chance-AT
+    module disable 75%-Chance-AT
+}

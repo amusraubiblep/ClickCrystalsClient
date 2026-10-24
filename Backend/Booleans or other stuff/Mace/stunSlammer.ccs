@@ -2,6 +2,15 @@ def module stunSlammer
 def desc "only purpose is to not switch to axe multiple times"
 
 on module_enable if playing {
+    if module_enabled Swap-Back {
+        module disable Swap-Back
+        wait 0.5 {
+        module enable Swap-Back
+        }
+    }
+}
+
+on module_enable if playing {
     as target_entity if blocking {
     switch #axe
     input left

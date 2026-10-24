@@ -1,0 +1,16 @@
+def module Breach-Swap-Keybind
+def desc "Right click to bind, this is a breach swap macro"
+
+on module_enable if playing {
+    if hotbar_has :mace[breach] {
+        if targeting_entity {
+            as target_entity if_not blocking {
+            switch :mace[breach]
+            wait 0.05 {
+                switch back
+                module disable Breach-Swap-Keybind
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,18 @@
+def module "DiagPearlCatch"
+def desc "Diagonal Pearl Catch"
+
+on pre_tick {
+    if playing {
+        if holding :ender_pearl {
+            input use
+            wait_random 0.02 0.03
+            if hotbar_has :wind_charge {
+                switch :wind_charge
+                wait_random 0.01 0.02
+                snap_to polar ~ ~-4.5
+                wait_random 0.02 0.03
+                input use
+            }
+        }
+    }
+}
